@@ -1,3 +1,22 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+html,
+body {
+  height: 100%;
+}
+
+main {
+  background: url("/images/main-background.jpg") no-repeat center center;
+  background-size: cover;
+  position: relative;
+}
+
+main::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  backdrop-filter: blur(2px);
+  background-color: rgba(0, 0, 0, 0.4);
+}

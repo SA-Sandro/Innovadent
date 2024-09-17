@@ -16,11 +16,12 @@ export default function RootLayout({
         <link rel="shortcut icon" href="/images/logo_empresa.png" />
         <title>Innovadent</title>
       </head>
-      <body className={`${montserrat.className} antialiased h-screen relative`}>
+      <body
+        className={`${montserrat.className} antialiased h-full flex flex-col`}
+        suppressHydrationWarning={true}
+      >
         <Sidebar />
-        <main className="sm:ml-64 flex flex-col justify-center items-center h-fit">
-          {children}
-        </main>
+        <main className="sm:ml-64 py-10 flex justify-center items-center">{children}</main>
         <Footer />
       </body>
     </html>
