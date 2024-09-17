@@ -1,6 +1,7 @@
 import "@/globals.css";
-import Image from "next/image";
 import { montserrat } from "@/ui/fonts";
+import Sidebar from "@/ui/Sidebar/Sidebar";
+import Footer from "@/ui/Footer/Footer";
 
 export default function RootLayout({
   children,
@@ -15,44 +16,13 @@ export default function RootLayout({
         <link rel="shortcut icon" href="/images/logo_empresa.png" />
         <title>Innovadent</title>
       </head>
-      <body className={`${montserrat.className} antialiased`}>
-        <header className="">
-          <div className="flex items-center pt-3">
-            <Image
-              width={50}
-              height={50}
-              src="/images/logo_empresa.png"
-              alt="Logo de Innovadent"
-            ></Image>
-            <div>
-              <h3 className="">Innovadent</h3>
-            </div>
-          </div>
-        </header>
-        {children}
-        <footer className="">
-          <div className="">
-            <div className="">
-              C. Pacífico, Málaga
-            </div>
-            <div className="">
-              <ul className="">
-                <a href="index.html">
-                  <li>Inicio</li>
-                </a>
-                <a href="">
-                  <li>Crear cita</li>
-                </a>
-                <a href="">
-                  <li>Ver citas</li>
-                </a>
-              </ul>
-            </div>
-          </div>
-          <div className="nombre d-flex justify-content-center">
-            Copyright © | Coded by Sandro Suárez
-          </div>
-        </footer>
+      <body
+        className={`${montserrat.className} antialiased h-full flex flex-col`}
+        suppressHydrationWarning={true}
+      >
+        <Sidebar />
+        <main className="sm:ml-64 py-10 flex justify-center items-center">{children}</main>
+        <Footer />
       </body>
     </html>
   );

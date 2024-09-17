@@ -1,41 +1,26 @@
 import Image from "next/image";
+import Info from "@/ui/Info/Info";
 
 export default function Home() {
   return (
     <>
-      <main className="">
-        <section className="">
-          <div className="">
+      <div className="relative flex flex-col justify-center items-center">
+        <div className="relative z-10 rounded-md w-92 sm:w-[21rem] md:w-[30rem] mt-10 bg-[#1F2937]/90 py-3 px-3 mx-3 text-center">
+          <h3 className="text-4xl text-white font-bold">Innovadent</h3>
+          <p className="text-xl text-gray-200 mt-1">
+            Porque vuestra sonrisa es nuestra prioridad
+          </p>
+          <div className="absolute top-1 right-1 sm:right-3 md:right-20">
             <Image
-              width={300}
-              height={300}
-              src="/images/main-background.jpg"
-              alt="Fondo de Innovadent"
-            ></Image>
+              src={"/images/logo_empresa.png"}
+              alt="Icono de la empresa"
+              width={35}
+              height={35}
+            />
           </div>
-          <div className="">
-            <div>
-              <h3 className="">Innovadent</h3>
-              <p>Porque vuestra sonrisa si que importa</p>
-            </div>
-          </div>
-        </section>
-
-        <section className="">
-          <div className="">
-            <div className="">
-              <a href="create_appointment.html">
-                <button className="">Crear una cita</button>
-              </a>
-            </div>
-            <div className="text-center p-2">
-              <a href="check_appointment.html">
-                <button className="">Ver citas</button>
-              </a>
-            </div>
-          </div>
-        </section>
-      </main>
+        </div>
+        <Info />
+      </div>
     </>
   );
 }

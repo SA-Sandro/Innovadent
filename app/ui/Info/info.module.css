@@ -1,0 +1,11 @@
+.info-container {
+  @apply bg-gray-200/90 p-5 rounded-md;
+}
+
+.info-container h2 {
+  @apply text-lg font-bold;
+}
+
+.info-container p {
+  @apply text-gray-800 text-pretty;
+}
