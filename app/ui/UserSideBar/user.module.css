@@ -1,0 +1,14 @@
+.login-icon {
+    animation: horizontalMove ease 0.5s infinite alternate;
+    margin-left: 1px;
+}
+
+@keyframes horizontalMove {
+    from{
+        margin-left: 0;
+    }
+
+    to{
+        margin-left: 5px;
+    }
+}

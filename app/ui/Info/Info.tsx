@@ -3,7 +3,7 @@ import styles from "./info.module.css";
 export default function Info() {
   return (
     <div className="max-w-xl lg:max-w-3xl my-10 mx-2 space-y-4">
-      <div className={styles["info-container"]}>
+      <article className={styles["info-container"]}>
         <h2>¿Qué es Innovadent?</h2>
         <p>
           En Innovadent, creemos firmemente que la salud dental es clave para
@@ -11,8 +11,8 @@ export default function Info() {
           facilitarte el acceso a un cuidado dental de primera clase a través de
           una plataforma eficiente, intuitiva y moderna.
         </p>
-      </div>
-      <div className={styles["info-container"]}>
+      </article>
+      <article className={styles["info-container"]}>
         <h2>¿Por qué elegir Innovadent?</h2>
         <p>
           Nuestro objetivo es ofrecerte un servicio dental que se adapta a tu
@@ -33,9 +33,9 @@ export default function Info() {
             disponible.
           </li>
         </ul>
-      </div>
+      </article>
       <div className="flex flex-col md:flex-row space-y-4 md:space-x-2 md:space-y-0 justify-center items-center">
-        <div className={styles["info-container"]}>
+        <article className={styles["info-container"]}>
           <h2>Nuestra filosofía</h2>
           <p>
             En Innovadent, sabemos que cada paciente es único. Nos preocupamos
@@ -43,8 +43,8 @@ export default function Info() {
             bucodental como tu confianza al sonreír. Porque tu sonrisa es lo que
             más nos importa.
           </p>
-        </div>
-        <div className={styles["info-container"]}>
+        </article>
+        <article className={styles["info-container"]}>
           <h2>Nuestro compromiso</h2>
           <p>
             Estamos comprometidos con ofrecerte la mejor experiencia posible,
@@ -52,7 +52,7 @@ export default function Info() {
             nuestra clínica con una sonrisa renovada. Con Innovadent, tus citas
             son solo el primer paso hacia una mejor salud dental.
           </p>
-        </div>
+        </article>
       </div>
     </div>
   );
