@@ -2,6 +2,14 @@
 @tailwind components;
 @tailwind utilities;
 
+html {
+  user-select: none;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -khtml-user-select: none;
+  -ms-user-select: none;
+}
+
 html,
 body {
   height: 100%;
@@ -11,6 +19,7 @@ main {
   background: url("/images/main-background.jpg") no-repeat center center;
   background-size: cover;
   position: relative;
+  background-color: rgba(0, 0, 0, 0);
 }
 
 main::before {
