@@ -8,7 +8,7 @@ export default function Home() {
         <div className="relative z-10 rounded-md w-92 sm:w-[21rem] md:w-[30rem] mt-10 bg-[#1F2937]/90 py-3 px-3 mx-3 text-center">
           <h3 className="text-4xl text-white font-bold">Innovadent</h3>
           <p className="text-xl text-gray-200 mt-1">
-            Porque vuestra sonrisa es nuestra prioridad
+            Porque tú sonrisa es nuestra prioridad
           </p>
           <div className="absolute top-1 right-1 sm:right-3 md:right-20">
             <Image

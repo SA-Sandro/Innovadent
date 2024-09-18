@@ -5,7 +5,8 @@ import { ReactElement, useState } from "react";
 import { RiMenu2Line } from "react-icons/ri";
 import { CiHome } from "react-icons/ci";
 import { MdOutlineManageAccounts } from "react-icons/md";
-import UserSideBar from "@/ui/UserSideBar/UserSideBar";
+import { CiLogin } from "react-icons/ci";
+import { LuUserCircle2 } from "react-icons/lu";
 
 type AsideProps = {
   burguerIsClicked: boolean;
@@ -31,7 +32,7 @@ const Aside = ({ burguerIsClicked }: AsideProps): ReactElement => {
           </a>
           <h3 className="text-white font-bold text-2xl">Innovadent</h3>
         </div>
-        <div className="flex flex-col text-white h-[80%] justify-between">
+        <div className="flex flex-col text-white h-[70%] justify-between">
           <div className="mt-10 flex flex-col space-y-3 text-md text-left ">
             <a
               href="/"
@@ -48,8 +49,21 @@ const Aside = ({ burguerIsClicked }: AsideProps): ReactElement => {
               <span className="ml-1">Gestor de citas</span>
             </a>
           </div>
-          <div className="flex justify-end items-end">
-            <UserSideBar />
+          <div className="space-y-2">
+            <a
+              href="/login"
+              className="flex items-center hover:bg-gray-700 rounded-md p-1"
+            >
+              <CiLogin size={20} strokeWidth={1} />
+              <span className="ml-2">Iniciar sesión</span>
+            </a>
+            <a
+              href=""
+              className="flex items-center hover:bg-gray-700 rounded-md p-1"
+            >
+              <LuUserCircle2 size={20} />
+              <span className="ml-2">Regístrate</span>
+            </a>
           </div>
         </div>
       </div>

@@ -21,7 +21,9 @@ export default function RootLayout({
         suppressHydrationWarning={true}
       >
         <Sidebar />
-        <main className="sm:ml-64 py-10 flex justify-center items-center">{children}</main>
+        <main className="sm:ml-64 py-10 h-full flex justify-center items-center">
+          {children}
+        </main>
         <Footer />
       </body>
     </html>
