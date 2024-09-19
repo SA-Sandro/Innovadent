@@ -1,7 +1,7 @@
 import "@/globals.css";
 import { montserrat } from "@/ui/fonts";
-import Sidebar from "@/ui/Sidebar/Sidebar";
-import Footer from "@/ui/Footer/Footer";
+import Sidebar from "@/ui/sidebar/Sidebar";
+import Footer from "@/ui/footer/Footer";
 
 export default function RootLayout({
   children,

@@ -5,12 +5,17 @@ const client = await db.connect();
 async function seedUsers() {
   try {
     await client.sql`
+    CREATE TYPE user_role AS ENUM ('user', 'admin');
+    `;
+
+    await client.sql`
       CREATE TABLE IF NOT EXISTS users (
         id UUID DEFAULT uuid_generate_v4() PRIMARY KEY,
-        name VARCHAR(255) NOT NULL,
+        username VARCHAR(255) NOT NULL,
         email TEXT NOT NULL UNIQUE,
-        image_url VARCHAR(255) NOT NULL DEFAULT '/default',
-        password TEXT NOT NULL
+        password TEXT NOT NULL,
+        image_url VARCHAR(255) NOT NULL DEFAULT '/images/default.png',
+        role user_role DEFAULT 'user'
       );
     `;
 

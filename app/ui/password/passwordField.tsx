@@ -1,14 +1,18 @@
-'use client';
+"use client";
 
 import { ReactElement, useState } from "react";
 import { IoEyeOffOutline, IoEyeOutline } from "react-icons/io5";
 
-export default function PasswordField(): ReactElement {
+type PasswordProp = {
+  labelName:string
+}
+
+export default function PasswordField({ labelName }: PasswordProp): ReactElement {
   const [showPassword, setShowPassword] = useState(false);
 
   return (
     <div>
-      <label className="text-gray-800 text-sm mb-2 block">Contraseña</label>
+      <label className="text-gray-800 text-sm mb-2 block">{labelName}</label>
       <div className="relative flex items-center">
         <input
           name="password"

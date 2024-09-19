@@ -16,6 +16,7 @@ export default function Home() {
               alt="Icono de la empresa"
               width={35}
               height={35}
+              className="h-auto w-auto"
             />
           </div>
         </div>

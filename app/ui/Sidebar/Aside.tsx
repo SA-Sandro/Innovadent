@@ -22,7 +22,7 @@ export default function Aside({ burguerIsClicked }: AsideProps): ReactElement {
     >
       <div className="px-3 py-4 bg-[#1F2937] h-full">
         <div className="flex flex-col items-center mt-5 cursor-pointer">
-          <Link href="/create-appointment">
+          <Link href="/">
             <Image
               width={60}
               height={60}
