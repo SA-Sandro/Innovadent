@@ -1,5 +1,3 @@
-"use client";
-
 import PasswordField from "@/ui/Login/passwordField";
 import { RiUserReceivedFill } from "react-icons/ri";
 
