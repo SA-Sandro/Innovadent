@@ -17,11 +17,11 @@ export default function RootLayout({
         <title>Innovadent</title>
       </head>
       <body
-        className={`${montserrat.className} antialiased h-full flex flex-col`}
+        className={`${montserrat.className} antialiased h-full`}
         suppressHydrationWarning={true}
       >
         <Sidebar />
-        <main className="sm:ml-64 py-10 h-full flex justify-center items-center">
+        <main className="relative sm:ml-64 py-10 flex justify-center items-center">
           {children}
         </main>
         <Footer />

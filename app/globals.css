@@ -18,8 +18,8 @@ body {
 main {
   background: url("/images/main-background.jpg") no-repeat center center;
   background-size: cover;
-  position: relative;
   background-color: rgba(0, 0, 0, 0);
+  min-height: 100vh;
 }
 
 main::before {
