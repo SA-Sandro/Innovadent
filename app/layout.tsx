@@ -1,7 +1,7 @@
 import "@/globals.css";
 import { montserrat } from "@/ui/fonts";
-import Sidebar from "@/ui/Sidebar/Sidebar";
-import Footer from "@/ui/Footer/Footer";
+import Sidebar from "@/ui/sidebar/Sidebar";
+import Footer from "@/ui/footer/Footer";
 
 export default function RootLayout({
   children,
@@ -17,11 +17,13 @@ export default function RootLayout({
         <title>Innovadent</title>
       </head>
       <body
-        className={`${montserrat.className} antialiased h-full flex flex-col`}
+        className={`${montserrat.className} antialiased h-full`}
         suppressHydrationWarning={true}
       >
         <Sidebar />
-        <main className="sm:ml-64 py-10 flex justify-center items-center">{children}</main>
+        <main className="relative sm:ml-64 py-10 flex justify-center items-center">
+          {children}
+        </main>
         <Footer />
       </body>
     </html>
