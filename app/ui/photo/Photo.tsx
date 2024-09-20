@@ -30,8 +30,8 @@ export default function PhotoPreviewer() {
       />
       <Image
         src={`${photoPreview ? photoPreview : "/images/default.png"}`}
-        width={20}
-        height={20}
+        width={50}
+        height={50}
         alt="Foto de perfil"
         className="w-16 h-16 rounded-full"
       />
