@@ -1,7 +1,7 @@
 "use client";
 
 import { ErrorState, FormFieldProps } from "@/lib/definitions";
-import { checkPhoto } from "@/lib/utils";
+import { checkPhoto } from "@/lib/registerValidations";
 import Image from "next/image";
 import { ChangeEvent, useState } from "react";
 

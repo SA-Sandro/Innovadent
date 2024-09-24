@@ -1,7 +1,7 @@
 "use client";
 
 import { ErrorState, FormFieldProps } from "@/lib/definitions";
-import { checkUsername } from "@/lib/utils";
+import { checkUsername } from "@/lib/registerValidations";
 import { ChangeEvent } from "react";
 import { useDebouncedCallback } from "use-debounce";
 
