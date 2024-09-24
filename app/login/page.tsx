@@ -1,4 +1,4 @@
-import PasswordField from "@/ui/password/passwordField";
+import PasswordField from "@/ui/login/PasswordField";
 import Link from "next/link";
 import { RiUserReceivedFill } from "react-icons/ri";
 
@@ -30,7 +30,7 @@ export default function Login() {
               <label className="text-xs font-mono text-red-500"></label>
             </div>
 
-            <PasswordField labelName="Contraseña" />
+            <PasswordField />
 
             <div className="mt-8">
               <button
