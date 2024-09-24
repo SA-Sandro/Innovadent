@@ -14,7 +14,7 @@ async function seedUsers() {
         username VARCHAR(255) NOT NULL,
         email TEXT NOT NULL UNIQUE,
         password TEXT NOT NULL,
-        image_url VARCHAR(255) NOT NULL DEFAULT '/images/default.png',
+        image_url VARCHAR(255) NOT NULL,
         role user_role DEFAULT 'user'
       );
     `;

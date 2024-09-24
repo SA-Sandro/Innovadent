@@ -46,13 +46,11 @@ export default function Form() {
       username: formData.get("username") as string,
       email: formData.get("email") as string,
       password: formData.get("password") as string,
-      image_url: image_url.name,
+      image_url: image_url.name === "" ? "/images/default.png" : image_url.name,
     };
 
     if (
-      [data.username, data.email, data.password, data.image_url].some(
-        (prop) => prop === ""
-      )
+      [data.username, data.email, data.password].some((prop) => prop === "")
     ) {
       showModal();
       return;
