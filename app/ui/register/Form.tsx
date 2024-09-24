@@ -1,12 +1,12 @@
 "use client";
 
 import { CustomerData, ErrorState } from "@/lib/definitions";
-import MailField from "@/ui/form-components/MailField";
+import MailField from "@/ui/register/MailField";
 import PasswordField, {
   ConfirmPasswordField,
-} from "@/ui/form-components/PasswordField";
-import PhotoPreviewer from "@/ui/form-components/PhotoField";
-import UsernameField from "@/ui/form-components/UsernameField";
+} from "@/ui/register/PasswordField";
+import PhotoPreviewer from "@/ui/register/PhotoField";
+import UsernameField from "@/ui/register/UsernameField";
 import { FormEvent, useState } from "react";
 import ButtonLoader from "../ButtonLoader";
 import { useRouter } from "next/navigation";

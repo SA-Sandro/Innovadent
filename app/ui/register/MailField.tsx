@@ -2,7 +2,7 @@
 
 import { ErrorState, FormFieldProps } from "@/lib/definitions";
 import { checkEmail } from "@/lib/utils";
-import { ChangeEvent, useState } from "react";
+import { ChangeEvent } from "react";
 import { useDebouncedCallback } from "use-debounce";
 
 export default function MailField({ errors, setErrors }: FormFieldProps) {
