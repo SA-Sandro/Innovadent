@@ -92,14 +92,15 @@ export function ConfirmPasswordField({
 
   useEffect(() => {
     validateConfirmPassword(confirmPassword);
-  }, [firstInputPassword]);
+    console.log("hola");
+  }, [firstInputPassword, confirmPassword, validateConfirmPassword]);
 
   const handleConfirmPasswordChange = (
     event: ChangeEvent<HTMLInputElement>
   ) => {
     const value = event.target.value;
     setConfirmPassword(value);
-    validateConfirmPassword(value); // Validar cada vez que cambie el valor del campo de confirmación
+    validateConfirmPassword(value);
   };
 
   return (
