@@ -13,7 +13,7 @@ export async function userRegistration(
     return result;
   } catch (error) {
     console.error("Error registering user: ", error);
-    throw new Error("Error registering user:");
+    throw new Error("Error registering user");
   }
 }
 
@@ -23,6 +23,6 @@ export async function getEmailsByEmail(email: string) {
     return emails;
   } catch (error) {
     console.error("Error getting emails:", error);
-    throw new Error("Error getting user:");
+    throw new Error("Error getting user");
   }
 }
