@@ -5,10 +5,7 @@ import { checkPhoto } from "@/lib/utils";
 import Image from "next/image";
 import { ChangeEvent, useState } from "react";
 
-export default function PhotoPreviewer({
-  errors,
-  setErrors,
-}: FormFieldProps) {
+export default function PhotoPreviewer({ errors, setErrors }: FormFieldProps) {
   const [photoPreview, setPhotoPreview] = useState("/images/default.png");
 
   const changePhoto = (event: ChangeEvent<HTMLInputElement>) => {

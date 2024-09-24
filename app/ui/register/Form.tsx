@@ -37,32 +37,40 @@ export default function Form() {
       ].some((field) => field.length > 0)
     ) {
       showModal();
-    } else {
-      const formData = new FormData(event.currentTarget);
-      const image_url = formData.get("image_url") as File;
+      return;
+    }
+    const formData = new FormData(event.currentTarget);
+    const image_url = formData.get("image_url") as File;
 
-      const data: CustomerData = {
-        username: formData.get("username") as string,
-        email: formData.get("email") as string,
-        password: formData.get("password") as string,
-        image_url: image_url.name,
-      };
+    const data: CustomerData = {
+      username: formData.get("username") as string,
+      email: formData.get("email") as string,
+      password: formData.get("password") as string,
+      image_url: image_url.name,
+    };
 
-      try {
-        setIsLoading(true);
-        await fetch("/api/postUser", {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify(data),
-        });
-      } catch (error) {
-        console.error("Error en la conexión:", error);
-      } finally {
-        setIsLoading(false);
-        router.push("/");
-      }
+    if (
+      [data.username, data.email, data.password, data.image_url].some(
+        (prop) => prop === ""
+      )
+    ) {
+      showModal();
+      return;
+    }
+    try {
+      setIsLoading(true);
+      await fetch("/api/postUser", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(data),
+      });
+    } catch (error) {
+      console.error("Error en la conexión:", error);
+    } finally {
+      setIsLoading(false);
+      router.push("/");
     }
   }
 

@@ -23,3 +23,7 @@ export type EyeIconProps = {
   showPassword: boolean;
   setShowPassword: React.Dispatch<React.SetStateAction<boolean>>;
 };
+
+export type Email = {
+  email:string
+}

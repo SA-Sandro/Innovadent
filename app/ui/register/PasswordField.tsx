@@ -42,7 +42,6 @@ export default function PasswordField({
         <input
           name="password"
           type={showPassword ? "text" : "password"}
-          required
           className="w-full text-gray-800 text-sm border border-gray-300 px-4 py-3 rounded-md outline-blue-600"
           placeholder="Escribe tu contraseña aquí"
           onChange={validatePassword}
@@ -92,7 +91,6 @@ export function ConfirmPasswordField({
 
   useEffect(() => {
     validateConfirmPassword(confirmPassword);
-    console.log("hola");
   }, [firstInputPassword, confirmPassword, validateConfirmPassword]);
 
   const handleConfirmPasswordChange = (
@@ -112,7 +110,6 @@ export function ConfirmPasswordField({
         <input
           name="confirmPassword"
           type={showPassword ? "text" : "password"}
-          required
           className="w-full text-gray-800 text-sm border border-gray-300 px-4 py-3 rounded-md outline-blue-600"
           placeholder="Escribe tu contraseña aquí"
           onChange={handleConfirmPasswordChange}

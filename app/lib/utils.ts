@@ -23,13 +23,37 @@ export const checkUsername = (username: string): string[] | null => {
   return null;
 };
 
-export const checkEmail = (email: string): string[] | null => {
-  const mySchema = z.string().email({ message: "Invalid email format" });
-  const result = mySchema.safeParse(email);
-  if (!result.success) {
-    return result.error.errors.map((error) => error.message);
+export const checkEmail = async (
+  currentEmail: string
+): Promise<string[] | null> => {
+  try {
+    const response = await fetch(
+      `/api/getEmails?email=${encodeURIComponent(currentEmail)}`
+    );
+
+    if (!response.ok) {
+      throw new Error("Failed to fetch emails from the database");
+    }
+    const emails = await response.json();
+    const numberRows: number = emails.result.rowCount;
+
+    const mySchema = z
+      .string()
+      .email({ message: "Formato inválido. " })
+      .refine(() => numberRows === 0, {
+        message: "Este email ya existe. ",
+      });
+    const result = mySchema.safeParse(currentEmail);
+
+    if (!result.success) {
+      return result.error.errors.map((error) => error.message);
+    }
+
+    return null;
+  } catch (error) {
+    console.error("Error checking email:", error);
+    return null;
   }
-  return null;
 };
 
 export const checkPassword = (password: string): string[] | null => {

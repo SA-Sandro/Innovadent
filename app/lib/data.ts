@@ -16,3 +16,13 @@ export async function userRegistration(
     throw new Error("Error registering user:");
   }
 }
+
+export async function getEmailsByEmail(email: string) {
+  try {
+    const emails = await sql`SELECT email FROM users WHERE email=${email}`;
+    return emails;
+  } catch (error) {
+    console.error("Error getting emails:", error);
+    throw new Error("Error getting user:");
+  }
+}
