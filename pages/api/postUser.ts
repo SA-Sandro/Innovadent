@@ -1,4 +1,5 @@
 import { userRegistration } from "@/lib/data";
+import { hashPassword } from "@/lib/utils";
 import type { NextApiRequest, NextApiResponse } from "next";
 
 export default async function handler(
@@ -8,10 +9,12 @@ export default async function handler(
   if (req.method === "POST") {
     try {
       const { username, email, password, image_url } = req.body;
+      const hashedPassword = await hashPassword(password);
+
       const result = await userRegistration(
         username,
         email,
-        password,
+        hashedPassword,
         image_url
       );
       res.status(200).json({ message: "User registered successfully", result });
