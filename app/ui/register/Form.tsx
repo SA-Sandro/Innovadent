@@ -1,16 +1,18 @@
 "use client";
 
-import { CustomerData, ErrorState } from "@/lib/definitions";
+import { CustomerData, ErrorState, FileName } from "@/lib/definitions";
 import MailField from "@/ui/register/MailField";
-import PasswordField, {
-  ConfirmPasswordField,
-} from "@/ui/register/PasswordField";
+import PasswordField, { ConfirmPasswordField } from "@/ui/register/PasswordField";
 import PhotoPreviewer from "@/ui/register/PhotoField";
 import UsernameField from "@/ui/register/UsernameField";
 import { FormEvent, useState } from "react";
-import ButtonLoader from "../ButtonLoader";
+import ButtonLoader from "@/ui/ButtonLoader";
 import { useRouter } from "next/navigation";
-import Modal, { showModal } from "../modal/Modal";
+import Modal, { showModal } from "@/ui/modal/Modal";
+import { fileUpload } from "@/lib/utils";
+
+
+const DEFAULT_IMAGE_URL: string = '/images/default.png'
 
 export default function Form() {
   const [isLoading, setIsLoading] = useState(false);
@@ -22,6 +24,8 @@ export default function Form() {
     imageErrors: [],
   });
   const [firstInputPassword, setFirstInputPassword] = useState("");
+  let userData: CustomerData;
+  let image_url: string | null;
 
   const router = useRouter();
 
@@ -40,29 +44,41 @@ export default function Form() {
       return;
     }
     const formData = new FormData(event.currentTarget);
-    const image_url = formData.get("image_url") as File;
 
-    const data: CustomerData = {
-      username: formData.get("username") as string,
-      email: formData.get("email") as string,
-      password: formData.get("password") as string,
-      image_url: image_url.name === "" ? "/images/default.png" : image_url.name,
-    };
-
-    if (
-      [data.username, data.email, data.password].some((prop) => prop === "")
-    ) {
-      showModal();
-      return;
-    }
     try {
+
+      if ([formData.get('username'), formData.get('email'), formData.get('password')].some((prop) => prop === "")) {
+        showModal();
+        return;
+      }
       setIsLoading(true);
+
+      const file = formData.get('image_url') as File;
+
+      if (file.size > 0) {
+        const response: FileName = await fileUpload(formData);
+        image_url = response.fileName
+      }
+
+      userData = {
+        username: formData.get("username") as string,
+        email: formData.get("email") as string,
+        password: formData.get("password") as string,
+        image_url: image_url ? image_url : DEFAULT_IMAGE_URL,
+      };
+
+
+    } catch (error) {
+      console.error("Error en la conexión:", error);
+    }
+
+    try {
       await fetch("/api/postUser", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify(data),
+        body: JSON.stringify(userData),
       });
     } catch (error) {
       console.error("Error en la conexión:", error);
@@ -78,20 +94,10 @@ export default function Form() {
         <div className="space-y-6">
           <UsernameField errors={errors} setErrors={setErrors} />
           <MailField errors={errors} setErrors={setErrors} />
-          <PasswordField
-            errors={errors}
-            setErrors={setErrors}
-            setFirstInputPassword={setFirstInputPassword}
-          />
-          <ConfirmPasswordField
-            errors={errors}
-            setErrors={setErrors}
-            firstInputPassword={firstInputPassword}
-          />
+          <PasswordField errors={errors} setErrors={setErrors} setFirstInputPassword={setFirstInputPassword} />
+          <ConfirmPasswordField errors={errors} setErrors={setErrors} firstInputPassword={firstInputPassword} />
           <div>
-            <label className="text-gray-800 text-sm mb-2 block">
-              Añade una foto de perfil
-            </label>
+            <label className="text-gray-800 text-sm mb-2 block">Añade una foto de perfil</label>
             <PhotoPreviewer errors={errors} setErrors={setErrors} />
           </div>
         </div>
@@ -106,10 +112,7 @@ export default function Form() {
         </div>
         <p className="text-gray-800 text-sm mt-6 text-center">
           ¿Ya tienes una cuenta?{" "}
-          <a
-            href="/login"
-            className="text-blue-600 font-semibold hover:underline ml-1"
-          >
+          <a href="/login" className="text-blue-600 font-semibold hover:underline ml-1">
             Inicia sesión aquí
           </a>
         </p>

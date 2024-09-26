@@ -24,5 +24,5 @@ export type EyeIconProps = {
 };
 
 export type FileName = {
-  filename: string;
+  fileName: string;
 };
