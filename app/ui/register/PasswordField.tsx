@@ -3,7 +3,7 @@ import { ErrorState, FormFieldProps } from "@/lib/definitions";
 import { checkConfirmPassword, checkPassword } from "@/lib/registerValidations";
 import { ChangeEvent, ReactElement } from "react";
 import { useDebouncedCallback } from "use-debounce";
-import EyeIcon from "./EyeIcon";
+import EyeIcon from "../EyeIcon";
 
 export default function PasswordField({
   errors,
