@@ -1,7 +1,7 @@
 'use client'
 
 import { useState } from "react";
-import EyeIcon from "../register/EyeIcon";
+import EyeIcon from "../EyeIcon";
 
 export default function PasswordField() {
   const [showPassword, setShowPassword] = useState(false);
@@ -15,7 +15,6 @@ export default function PasswordField() {
         <input
           name="password"
           type={showPassword ? "text" : "password"}
-          required
           className="w-full text-gray-800 text-sm border border-gray-300 px-4 py-3 rounded-md outline-blue-600"
           placeholder="Escribe tu contraseña aquí"
         />
@@ -24,7 +23,6 @@ export default function PasswordField() {
           setShowPassword={setShowPassword}
         />
       </div>
-      <label className="text-xs font-mono text-red-500"></label>
     </div>
   );
 }
