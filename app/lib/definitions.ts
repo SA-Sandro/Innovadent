@@ -1,5 +1,3 @@
-import NextAuth, { DefaultSession } from "next-auth";
-
 export type CustomerData = {
   username: string;
   email: string;
@@ -28,22 +26,3 @@ export type EyeIconProps = {
 export type FileName = {
   fileName: string;
 };
-
-export type User = {
-  id: string;
-  email: string;
-  password: string;
-  role: string;
-};
-
-declare module "next-auth" {
-  interface Session {
-    user: {
-      role: string;
-    };
-  }
-
-  interface User {
-    role: string;
-  }
-}
