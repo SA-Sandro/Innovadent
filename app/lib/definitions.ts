@@ -49,3 +49,10 @@ export const sessionOptions: SessionOptions = {
     secure: process.env.NODE_ENV === "production",
   },
 };
+
+export type User = {
+  id: string;
+  email: string;
+  password: string;
+  role: string;
+};
