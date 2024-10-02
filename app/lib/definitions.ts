@@ -1,3 +1,5 @@
+import { SessionOptions } from "iron-session";
+
 export type CustomerData = {
   username: string;
   email: string;
@@ -25,4 +27,25 @@ export type EyeIconProps = {
 
 export type FileName = {
   fileName: string;
+};
+
+export interface SessionData {
+  userId?: string;
+  email?: string;
+  img?: string;
+  isLoggedIn: boolean;
+  role?: string;
+}
+
+export const defaultSession: SessionData = {
+  isLoggedIn: false,
+};
+
+export const sessionOptions: SessionOptions = {
+  password: process.env.SESSION_SECRET!,
+  cookieName: "lama-session",
+  cookieOptions: {
+    httpOnly: true,
+    secure: process.env.NODE_ENV === "production",
+  },
 };
