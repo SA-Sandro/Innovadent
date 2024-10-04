@@ -15,10 +15,23 @@ import bcrypt from "bcryptjs";
 
 export async function getSession() {
   const session = await getIronSession<SessionData>(cookies(), sessionOptions);
+
   if (!session.isLoggedIn) {
     session.isLoggedIn = defaultSession.isLoggedIn;
   }
   return session;
+}
+
+export async function getPlainObject() {
+  const session = await getSession();
+  return {
+    userId: session.userId,
+    userName: session.userName,
+    email: session.email,
+    role: session.role,
+    isLoggedIn: session.isLoggedIn,
+    image_url: session.image_url,
+  } as SessionData;
 }
 
 export async function logoutAction() {
@@ -54,7 +67,13 @@ export async function loginAction(
       session.isLoggedIn = true;
       session.image_url = user.image_url;
       await session.save();
-      return { session };
+
+      const plainObject = await getPlainObject();
+
+      return {
+        session: plainObject,
+        error: undefined,
+      };
     }
   }
 

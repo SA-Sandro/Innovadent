@@ -33,7 +33,7 @@ export default function Form() {
     const formData = new FormData(e.target as HTMLFormElement);
     const result = await loginAction(state, formData);
     if (result.error) {
-      setState({ ...state, error: result.error });
+      setState({ ...state, error: result?.error });
     } else {
       setState(initialState);
       setSession({

@@ -39,7 +39,7 @@ export type FileName = {
 
 export interface SessionData {
   userId?: string;
-  userName?:string;
+  userName?: string;
   email?: string;
   image_url?: string;
   isLoggedIn: boolean | undefined;
