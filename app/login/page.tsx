@@ -1,6 +1,6 @@
 import Form from "@/ui/login/Form";
 
-export default function Login() {
+export default async function Login() {
   return (
     <>
       <div className="flex flex-col justify-center items-center relative h-[90%] ">

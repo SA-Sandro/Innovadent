@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
-import { getSession } from "@/lib/actions"; // Asegúrate de tener la función getSession disponible
+import { getSession } from "@/lib/actions"; 
 
 export async function middleware(req: NextRequest) {
   const session = await getSession();
@@ -9,7 +9,6 @@ export async function middleware(req: NextRequest) {
   const protectedRoutes = ["/login", "/register"];
 
   if (isLoggedIn && protectedRoutes.includes(req.nextUrl.pathname)) {
-    // Redirige al usuario al home
     return NextResponse.redirect(new URL("/", req.url));
   }
 

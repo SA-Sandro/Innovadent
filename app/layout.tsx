@@ -2,6 +2,7 @@ import "@/globals.css";
 import { montserrat } from "@/ui/fonts";
 import Sidebar from "@/ui/sidebar/Sidebar";
 import Footer from "@/ui/footer/Footer";
+import { SessionProvider } from "@/context/SessionContext";
 
 export default function RootLayout({
   children,
@@ -19,11 +20,13 @@ export default function RootLayout({
         className={`${montserrat.className} antialiased h-full`}
         suppressHydrationWarning={true}
       >
-        <Sidebar />
-        <main className="relative sm:ml-64 py-10 flex justify-center items-center">
-          {children}
-        </main>
-        <Footer />
+        <SessionProvider>
+          <Sidebar />
+          <main className="relative sm:ml-64 py-10 flex justify-center items-center">
+            {children}
+          </main>
+          <Footer />
+        </SessionProvider>
       </body>
     </html>
   );

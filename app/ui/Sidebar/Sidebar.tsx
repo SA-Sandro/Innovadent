@@ -15,6 +15,7 @@ export default function Sidebar() {
       }
     });
   }
+  
   return (
     <div id="sidebar" className="w-20">
       <button
