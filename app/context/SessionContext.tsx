@@ -23,7 +23,8 @@ export const SessionProvider = ({ children }: { children: ReactNode }) => {
                 setSessionState({
                     isLoggedIn: actualSession.isLoggedIn,
                     role: actualSession.role,
-                    image_url: actualSession.image_url
+                    image_url: actualSession.image_url,
+                    userName: actualSession.userName
                 });
                 return;
             }

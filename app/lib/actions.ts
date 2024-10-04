@@ -18,7 +18,6 @@ export async function getSession() {
   if (!session.isLoggedIn) {
     session.isLoggedIn = defaultSession.isLoggedIn;
   }
-  console.log(session);
   return session;
 }
 
@@ -49,6 +48,7 @@ export async function loginAction(
     const passwordsMatch = await bcrypt.compare(password, user.password);
     if (passwordsMatch) {
       session.userId = user.id;
+      session.userName = user.username;
       session.email = user.email;
       session.role = user.role;
       session.isLoggedIn = true;
@@ -63,8 +63,7 @@ export async function loginAction(
 
 async function getUser(email: string): Promise<User | undefined> {
   try {
-    const user =
-      await sql<User>`SELECT id, email, image_url, password, role FROM users WHERE email=${email}`;
+    const user = await sql<User>`SELECT * FROM users WHERE email=${email}`;
     return user.rows[0];
   } catch (error) {
     console.error("Failed to fetch user:", error);

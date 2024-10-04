@@ -39,6 +39,7 @@ export type FileName = {
 
 export interface SessionData {
   userId?: string;
+  userName?:string;
   email?: string;
   image_url?: string;
   isLoggedIn: boolean | undefined;
@@ -60,6 +61,7 @@ export const sessionOptions: SessionOptions = {
 
 export type User = {
   id: string;
+  username: string;
   email: string;
   password: string;
   image_url: string;

@@ -11,7 +11,6 @@ export default function Routes() {
 
     const pathName = usePathname();
     const {session} = useSession();
-    console.log(session?.image_url);
     return (
         <div className="px-3 py-4 bg-[#1F2937] h-full">
             <div className="flex flex-col items-center mt-5 cursor-pointer">
@@ -25,7 +24,7 @@ export default function Routes() {
                         className="w-auto h-auto"
                     />
                 </Link>
-                <h3 className="text-white font-bold text-2xl">Innovadent</h3>
+                <h3 className="text-white font-bold text-2xl">{session?.userName}</h3>
             </div>
             <div className="flex flex-col text-white h-[70%] justify-between">
                 <div className="mt-10 flex flex-col space-y-3 text-md text-left ">

@@ -6,10 +6,13 @@ import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import LogoutButton from "@/ui/LogoutButton";
+import { useSession } from "@/context/SessionContext";
 
 export default function AdminRoutes() {
 
     const pathName = usePathname();
+    const { session } = useSession();
+
     return (
         <div className="px-3 py-4 bg-[#1F2937] h-full">
             <div className="flex flex-col items-center mt-5 cursor-pointer">
@@ -18,7 +21,7 @@ export default function AdminRoutes() {
                         width={60}
                         height={60}
                         priority={true}
-                        src="/images/logo_empresa.png"
+                        src={`/uploads/${session?.image_url}`}
                         alt="Logo de Innovadent"
                         className="w-auto h-auto"
                     />
