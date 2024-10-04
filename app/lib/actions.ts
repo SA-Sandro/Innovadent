@@ -18,7 +18,7 @@ export async function getSession() {
   if (!session.isLoggedIn) {
     session.isLoggedIn = defaultSession.isLoggedIn;
   }
-  console.log(session)
+  console.log(session);
   return session;
 }
 
@@ -31,7 +31,6 @@ export async function loginAction(
   prevState: stateType,
   formData: FormData
 ): Promise<{ session: SessionData | null; error?: string }> {
-  
   const data = {
     email: formData.get("email"),
     password: formData.get("password"),
