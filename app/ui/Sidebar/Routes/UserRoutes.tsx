@@ -10,21 +10,21 @@ import { useSession } from "@/context/SessionContext";
 export default function Routes() {
 
     const pathName = usePathname();
-    const {session} = useSession();
+    const { session } = useSession();
     return (
         <div className="px-3 py-4 bg-[#1F2937] h-full">
-            <div className="flex flex-col items-center mt-5 cursor-pointer">
+            <div className="flex flex-col items-center mt-5 cursor-pointer ">
                 <Link href="/">
                     <Image
-                        width={60}
+                        width={80}
                         height={60}
                         priority={true}
                         src={`/uploads/${session?.image_url}`}
                         alt="Logo de Innovadent"
-                        className="w-auto h-auto"
+                        className="w-auto h-auto rounded-xl"
                     />
                 </Link>
-                <h3 className="text-white font-bold text-2xl">{session?.userName}</h3>
+                <h3 className="text-white font-bold text-2xl mt-2">{session?.userName}</h3>
             </div>
             <div className="flex flex-col text-white h-[70%] justify-between">
                 <div className="mt-10 flex flex-col space-y-3 text-md text-left ">

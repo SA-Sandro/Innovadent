@@ -14,7 +14,8 @@ export default function Aside({ burguerIsClicked }: AsideProps) {
       className={`fixed top-0 z-50 left-0 w-64 h-screen transition-transform sm:translate-x-0
       ${burguerIsClicked ? "translate-x-0" : "-translate-x-full"}`}
     >
-      {session?.isLoggedIn && session?.role === 'user' ? <UserRoutes /> : <NonSignedInRoutes />}
+      {session?.isLoggedIn && session?.role === 'user' ? <UserRoutes /> : (
+        session?.role === 'admin' ? <AdminRoutes /> : <NonSignedInRoutes />)}
     </aside>
   );
 }

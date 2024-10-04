@@ -23,10 +23,10 @@ export default function AdminRoutes() {
                         priority={true}
                         src={`/uploads/${session?.image_url}`}
                         alt="Logo de Innovadent"
-                        className="w-auto h-auto"
+                        className="w-auto h-auto rounded-full"
                     />
                 </Link>
-                <h3 className="text-white font-bold text-2xl">Innovadent</h3>
+                <h3 className="text-white font-bold text-2xl mt-2">{session?.userName}</h3>
             </div>
             <div className="flex flex-col text-white h-[70%] justify-between">
                 <div className="mt-10 flex flex-col space-y-3 text-md text-left ">
