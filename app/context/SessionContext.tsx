@@ -1,13 +1,8 @@
 "use client";
 
 import { createContext, useContext, useState, ReactNode, useEffect } from "react";
-import { SessionData } from "@/lib/definitions";
+import { SessionContextProps, SessionData } from "@/lib/definitions";
 import { getSession } from "@/lib/actions";
-
-interface SessionContextProps {
-    session: SessionData | undefined;
-    setSession: (session: SessionData) => void;
-}
 
 const SessionContext = createContext<SessionContextProps | undefined>(undefined);
 

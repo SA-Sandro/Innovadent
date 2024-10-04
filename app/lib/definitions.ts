@@ -25,6 +25,14 @@ export type EyeIconProps = {
   setShowPassword: React.Dispatch<React.SetStateAction<boolean>>;
 };
 
+export type AsideProps = {
+  burguerIsClicked: boolean;
+};
+
+export type stateType = {
+  error: string | undefined;
+};
+
 export type FileName = {
   fileName: string;
 };
@@ -32,8 +40,8 @@ export type FileName = {
 export interface SessionData {
   userId?: string;
   email?: string;
-  img?: string;
-  isLoggedIn: boolean;
+  image_url?: string;
+  isLoggedIn: boolean | undefined;
   role?: string;
 }
 
@@ -54,5 +62,11 @@ export type User = {
   id: string;
   email: string;
   password: string;
+  image_url: string;
   role: string;
 };
+
+export interface SessionContextProps {
+  session: SessionData | undefined;
+  setSession: (session: SessionData) => void;
+}
