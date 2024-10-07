@@ -72,3 +72,7 @@ export interface SessionContextProps {
   session: SessionData | undefined;
   setSession: (session: SessionData) => void;
 }
+
+export const initialState: stateType = {
+  error: "",
+};
