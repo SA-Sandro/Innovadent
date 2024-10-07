@@ -1,4 +1,5 @@
 import { sql } from "@vercel/postgres";
+import { User } from "./definitions";
 
 export async function userRegistration(
   username: string,
@@ -24,5 +25,30 @@ export async function getEmailsByEmail(email: string) {
   } catch (error) {
     console.error("Error getting emails:", error);
     throw new Error("Error getting user");
+  }
+}
+
+export async function getUser(email: string): Promise<User | undefined> {
+  try {
+    const user = await sql<User>`SELECT * FROM users WHERE email=${email}`;
+    return user.rows[0];
+  } catch (error) {
+    console.error("Failed to fetch user:", error);
+    throw new Error("Failed to fetch user.");
+  }
+}
+
+export async function postAppointment(
+  user_email: string,
+  appointment_reason: string,
+  date: Date,
+  hour: string
+) {
+  try {
+    const result =
+      await sql`INSERT INTO appointments (user_email, appointment_reason, date, hour)
+    VALUES (${user_email}, ${appointment_reason}, ${date.toISOString()}, ${hour})`;
+  } catch (error) {
+    console.error("Error posting appointments ", error);
   }
 }
