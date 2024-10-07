@@ -1,17 +1,20 @@
 "use server";
 
 import {
+  appointmentStateType,
+  CredentialsType,
   defaultSession,
   SessionData,
   stateType,
   User,
 } from "@/lib/definitions";
 import { sessionOptions } from "@/lib/definitions";
-import { sql } from "@vercel/postgres";
 import { getIronSession } from "iron-session";
 import { cookies } from "next/headers";
 import { z } from "zod";
 import bcrypt from "bcryptjs";
+import { getParsedAppointmentData, getParsedCredentials } from "./schemas";
+import { getUser, postAppointment } from "./data";
 
 export async function getSession() {
   const session = await getIronSession<SessionData>(cookies(), sessionOptions);
@@ -43,15 +46,13 @@ export async function loginAction(
   prevState: stateType,
   formData: FormData
 ): Promise<{ session: SessionData | null; error?: string }> {
-  const data = {
-    email: formData.get("email"),
-    password: formData.get("password"),
+  const data: CredentialsType = {
+    email: formData.get("email") as string,
+    password: formData.get("password") as string,
   };
 
   const session = await getSession();
-  const parsedCredentials = z
-    .object({ email: z.string().email(), password: z.string().min(6) })
-    .safeParse(data);
+  const parsedCredentials = getParsedCredentials(data);
 
   if (parsedCredentials.success) {
     const { email, password } = parsedCredentials.data;
@@ -80,17 +81,45 @@ export async function loginAction(
   return { session: null, error: "El usuario o la contraseña es incorrecto" };
 }
 
-async function getUser(email: string): Promise<User | undefined> {
-  try {
-    const user = await sql<User>`SELECT * FROM users WHERE email=${email}`;
-    return user.rows[0];
-  } catch (error) {
-    console.error("Failed to fetch user:", error);
-    throw new Error("Failed to fetch user.");
-  }
-}
+export async function createAppointment(
+  prevState: appointmentStateType,
+  formData: FormData
+): Promise<appointmentStateType> {
+  const objectFormData = {
+    motive:
+      formData.get("motive") === "Otros"
+        ? (formData.get("other") as string)
+        : (formData.get("motive") as string),
+    date: new Date(formData.get("date") as string),
+    hour: formData.get("hour") as string,
+  };
 
-export async function createAppoitment(prevState: stateType, formData: FormData) {
-  console.log(formData);
-  return { error: "" };
+  const parsedData = getParsedAppointmentData(objectFormData);
+
+  if (!parsedData.success) {
+    return {
+      error: {
+        date: parsedData.error.formErrors.fieldErrors.date,
+        hour: parsedData.error.formErrors.fieldErrors.hour,
+        reason: parsedData.error.formErrors.fieldErrors.motive,
+      },
+    };
+  }
+
+  const session = await getSession();
+  console.log(session);
+  await postAppointment(
+    session.email!,
+    parsedData.data.motive,
+    parsedData.data.date,
+    parsedData.data.hour
+  );
+
+  return {
+    error: {
+      date: undefined,
+      hour: undefined,
+      reason: undefined,
+    },
+  };
 }
