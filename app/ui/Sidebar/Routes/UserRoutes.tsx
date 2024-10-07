@@ -21,7 +21,7 @@ export default function Routes() {
                         priority={true}
                         src={`/uploads/${session?.image_url}`}
                         alt="Logo de Innovadent"
-                        className="w-auto h-auto rounded-xl"
+                        className="w-auto h-auto rounded-full"
                     />
                 </Link>
                 <h3 className="text-white font-bold text-2xl mt-2">{session?.userName}</h3>
