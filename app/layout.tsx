@@ -2,7 +2,7 @@ import "@/globals.css";
 import { montserrat } from "@/ui/fonts";
 import Sidebar from "@/ui/sidebar/Sidebar";
 import Footer from "@/ui/footer/Footer";
-import { SessionProvider } from "next-auth/react"; // Importa el SessionProvider
+import { SessionProvider } from "@/context/SessionContext";
 
 export default function RootLayout({
   children,
