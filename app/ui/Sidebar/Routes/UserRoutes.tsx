@@ -36,6 +36,14 @@ export default function Routes() {
                         <CiHome size={20} strokeWidth={0.9} />
                         <span className="ml-1">Inicio</span>
                     </Link>
+                    <Link
+                        href="/create-appointment"
+                        className={`flex items-center hover:bg-gray-700 rounded-md p-1 ${pathName === "/create-appointment" ? "bg-blue-950" : ""
+                            }`}
+                    >
+                        <CiHome size={20} strokeWidth={0.9} />
+                        <span className="ml-1">Pedir cita</span>
+                    </Link>
                 </div>
 
                 <div className="space-y-2">
