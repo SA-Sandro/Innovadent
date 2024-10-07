@@ -1,4 +1,5 @@
 import { z } from "zod";
+import { CredentialsType, ObjectFormData } from "./definitions";
 
 const ACCEPTED_FILE_TYPES = [
   "image/png",
@@ -9,6 +10,13 @@ const ACCEPTED_FILE_TYPES = [
 const MAX_UPLOAD_SIZE = 1024 * 1024 * 3;
 const REGEX = new RegExp("^(?=.*[A-Z])(?=.*[a-z])(?=.*\\d)[A-Za-z\\d]{5,20}$");
 
+export const getParsedCredentials = (data: CredentialsType) => {
+  const parsedCredentials = z
+    .object({ email: z.string().email(), password: z.string().min(6) })
+    .safeParse(data);
+
+  return parsedCredentials;
+};
 
 export const getParsedUsername = (username: string) => {
   const usernameSchema = z
@@ -56,15 +64,39 @@ export const getParsedConfirmPassword = (
   return confirmPasswordSchema.safeParse(confirmPassword);
 };
 
-export const getParsedPhoto = (file:File) => {
-    const photoSchema = z
-      .instanceof(File)
-      .refine((f) => {
-        return ACCEPTED_FILE_TYPES.includes(f.type);
-      }, "Invalid extension. ")
-      .refine((f) => {
-        return f.size <= MAX_UPLOAD_SIZE;
-      }, "File size must be less than 3MB. ");
+export const getParsedPhoto = (file: File) => {
+  const photoSchema = z
+    .instanceof(File)
+    .refine((f) => {
+      return ACCEPTED_FILE_TYPES.includes(f.type);
+    }, "Invalid extension. ")
+    .refine((f) => {
+      return f.size <= MAX_UPLOAD_SIZE;
+    }, "File size must be less than 3MB. ");
 
-    return photoSchema.safeParse(file)
-}
+  return photoSchema.safeParse(file);
+};
+
+export const getParsedAppointmentData = (formData: ObjectFormData) => {
+  console.log(formData.motive);
+  const formDataSchema = z.object({
+    motive: z
+      .string()
+      .max(300, "El texto no debe de superar los 300 caracteres")
+      .min(1, { message: "Este campo es requerido" }),
+    date: z
+      .date()
+      .refine((date) => date !== undefined, {
+        message: "Este campo es requerido",
+      })
+      .refine((date) => date > new Date(), {
+        message: "La fecha elegida debe de ser mayor a la actual",
+      }),
+    hour: z
+      .string()
+      .min(1, { message: "Este campo es requerido" })
+      .max(100, { message: "Este campo excede los 100 caracteres" })
+      .trim(),
+  });
+  return formDataSchema.safeParse(formData);
+};
