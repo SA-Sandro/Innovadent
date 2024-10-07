@@ -89,3 +89,8 @@ async function getUser(email: string): Promise<User | undefined> {
     throw new Error("Failed to fetch user.");
   }
 }
+
+export async function createAppoitment(prevState: stateType, formData: FormData) {
+  console.log(formData);
+  return { error: "" };
+}

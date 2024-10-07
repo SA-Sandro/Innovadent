@@ -1,7 +1,7 @@
 "use client";
 
 import { loginAction } from "@/lib/actions";
-import { stateType } from "@/lib/definitions";
+import { initialState, stateType } from "@/lib/definitions";
 import PasswordField from "@/ui/login/PasswordField";
 import Link from "next/link";
 import { useState, useEffect } from "react";
@@ -11,9 +11,6 @@ import { useSession } from "@/context/SessionContext";
 import { useRouter } from "next/navigation";
 
 export default function Form() {
-  const initialState: stateType = {
-    error: "",
-  };
 
   const [isLoading, setIsLoading] = useState(false);
   const [state, setState] = useState<stateType>(initialState);
