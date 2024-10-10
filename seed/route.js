@@ -28,7 +28,7 @@ async function createTables() {
     await client.sql`
       CREATE TABLE IF NOT EXISTS appointments (
         id UUID DEFAULT uuid_generate_v4() PRIMARY KEY,
-        user_email TEXT NOT NULL UNIQUE,
+        user_email TEXT NOT NULL,
         appointment_reason TEXT NOT NULL,
         date DATE NOT NULL,
         hour TIME NOT NULL
