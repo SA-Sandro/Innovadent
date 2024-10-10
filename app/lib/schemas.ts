@@ -78,7 +78,6 @@ export const getParsedPhoto = (file: File) => {
 };
 
 export const getParsedAppointmentData = (formData: ObjectFormData) => {
-  console.log(formData.motive);
   const formDataSchema = z.object({
     motive: z
       .string()
