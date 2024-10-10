@@ -105,7 +105,6 @@ export async function createAppointment(
   }
 
   const session = await getSession();
-  console.log(session);
   await postAppointment(
     session.email!,
     parsedData.data.motive,
