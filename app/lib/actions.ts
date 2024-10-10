@@ -6,12 +6,10 @@ import {
   defaultSession,
   SessionData,
   stateType,
-  User,
 } from "@/lib/definitions";
 import { sessionOptions } from "@/lib/definitions";
 import { getIronSession } from "iron-session";
 import { cookies } from "next/headers";
-import { z } from "zod";
 import bcrypt from "bcryptjs";
 import { getParsedAppointmentData, getParsedCredentials } from "./schemas";
 import { getUser, postAppointment } from "./data";
