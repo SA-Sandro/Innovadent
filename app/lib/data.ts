@@ -1,3 +1,5 @@
+"use server";
+
 import { sql } from "@vercel/postgres";
 import { User } from "./definitions";
 
@@ -45,10 +47,25 @@ export async function postAppointment(
   hour: string
 ) {
   try {
-    const result =
-      await sql`INSERT INTO appointments (user_email, appointment_reason, date, hour)
+    await sql`INSERT INTO appointments (user_email, appointment_reason, date, hour)
     VALUES (${user_email}, ${appointment_reason}, ${date.toISOString()}, ${hour})`;
   } catch (error) {
     console.error("Error posting appointments ", error);
+  }
+}
+
+export async function getBookedHourByDate(selectedDate: Date) {
+  try {
+    const bookedHoursByDate =
+      await sql`SELECT hour FROM appointments WHERE date = ${selectedDate.toISOString()}`;
+
+    if (!bookedHoursByDate || bookedHoursByDate.rowCount! < 1) return undefined;
+
+    const arrayHours: Array<string> = [];
+    bookedHoursByDate.rows.map((row) => arrayHours.push(row.hour));
+
+    return arrayHours;
+  } catch (error) {
+    console.error("Error getting booked hours: ", error);
   }
 }
