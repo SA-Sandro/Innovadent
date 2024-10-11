@@ -22,8 +22,13 @@ export const getParsedCredentials = (data: CredentialsType) => {
 export const getParsedUsername = (username: string) => {
   const usernameSchema = z
     .string()
-    .min(3, { message: "Username must be at least 3 characters long" })
-    .max(20, { message: "Username must not exceed 20 characters long" });
+    .min(1, { message: "Este campo es requerido. " })
+    .min(5, {
+      message: "El nombre de usuario debe de tener 5 caracteres como mínimo. ",
+    })
+    .max(20, {
+      message: "El nombre de usuario debe de tener como máximo 20 caracteres. ",
+    });
 
   return usernameSchema.safeParse(username);
 };
@@ -42,11 +47,14 @@ export const getParsedEmail = (numberRows: number, currentEmail: string) => {
 export const getParsedPassword = (password: string) => {
   const passwordSchema = z
     .string()
-    .min(5, { message: "Password must be at least 5 characters long. " })
-    .max(15, { message: "Password must be at most 15 characters long. " })
+    .min(1, { message: "Este campo es requerido" })
+    .min(5, { message: "La contraseña debe de tener al menos 5 caracteres. " })
+    .max(15, {
+      message: "La contraseña debe de tener como máximo 15 caracteres. ",
+    })
     .regex(REGEX, {
       message:
-        "Password should contain at least one digit, one uppercase and one lowercase. ",
+        "La contraseña debe de tener al menos: 1 dígito, una mayúscula y una minúscula.  ",
     });
 
   return passwordSchema.safeParse(password);
@@ -59,7 +67,7 @@ export const getParsedConfirmPassword = (
   const confirmPasswordSchema = z
     .string()
     .refine((confirmPassword) => confirmPassword === firstInputPassword, {
-      message: "Passwords do not match",
+      message: "Las contraseñas no coinciden",
     });
 
   return confirmPasswordSchema.safeParse(confirmPassword);
@@ -70,10 +78,10 @@ export const getParsedPhoto = (file: File) => {
     .instanceof(File)
     .refine((f) => {
       return ACCEPTED_FILE_TYPES.includes(f.type);
-    }, "Invalid extension. ")
+    }, "La extensión del archivo es inválida. ")
     .refine((f) => {
       return f.size <= MAX_UPLOAD_SIZE;
-    }, "File size must be less than 3MB. ");
+    }, "La imagen debe de pesar menos de 3Mb. ");
 
   return photoSchema.safeParse(file);
 };
