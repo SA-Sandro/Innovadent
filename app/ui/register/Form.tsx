@@ -8,11 +8,12 @@ import UsernameField from "@/ui/register/UsernameField";
 import { FormEvent, useState } from "react";
 import ButtonLoader from "@/ui/ButtonLoader";
 import { useRouter } from "next/navigation";
-import Modal, { showModal } from "@/ui/modal/Modal";
+import FailedRegistration from "@/ui/modal/FailedRegistration";
 import { fileUpload } from "@/lib/utils";
+import Modal from "@/lib/modal";
 
 
-const DEFAULT_IMAGE_URL: string = '/images/default.png'
+const DEFAULT_IMAGE_URL: string = '/images/default.png';
 
 export default function Form() {
   const [isLoading, setIsLoading] = useState(false);
@@ -40,7 +41,7 @@ export default function Form() {
         errors.imageErrors,
       ].some((field) => field.length > 0)
     ) {
-      showModal();
+      new Modal().showModal();
       return;
     }
     const formData = new FormData(event.currentTarget);
@@ -48,7 +49,7 @@ export default function Form() {
     try {
 
       if ([formData.get('username'), formData.get('email'), formData.get('password')].some((prop) => prop === "")) {
-        showModal();
+        new Modal().showModal();
         return;
       }
       setIsLoading(true);
@@ -117,7 +118,7 @@ export default function Form() {
           </a>
         </p>
       </form>
-      <Modal />
+      <FailedRegistration />
     </div>
   );
 }
