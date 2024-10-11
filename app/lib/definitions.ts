@@ -44,6 +44,7 @@ export type appointmentStateType = {
     date?: string[] | undefined;
     hour?: string[] | undefined;
   };
+  isSuccess?: boolean;
 };
 
 export type FileName = {

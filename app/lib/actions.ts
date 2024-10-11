@@ -92,7 +92,7 @@ export async function createAppointment(
     hour: formData.get("hour") as string,
   };
 
-  const parsedData = getParsedAppointmentData(objectFormData);
+  const parsedData = await getParsedAppointmentData(objectFormData);
 
   if (!parsedData.success) {
     return {
@@ -101,6 +101,7 @@ export async function createAppointment(
         hour: parsedData.error.formErrors.fieldErrors.hour,
         reason: parsedData.error.formErrors.fieldErrors.motive,
       },
+      isSuccess: false,
     };
   }
 
@@ -118,5 +119,6 @@ export async function createAppointment(
       hour: undefined,
       reason: undefined,
     },
+    isSuccess: true,
   };
 }
