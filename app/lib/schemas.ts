@@ -1,5 +1,6 @@
 import { z } from "zod";
 import { CredentialsType, ObjectFormData } from "./definitions";
+import { getBookedHourByDate } from "./data";
 
 const ACCEPTED_FILE_TYPES = [
   "image/png",
@@ -77,7 +78,9 @@ export const getParsedPhoto = (file: File) => {
   return photoSchema.safeParse(file);
 };
 
-export const getParsedAppointmentData = (formData: ObjectFormData) => {
+export const getParsedAppointmentData = async (formData: ObjectFormData) => {
+  const bookedHours = await getBookedHourByDate(formData.date);
+
   const formDataSchema = z.object({
     motive: z
       .string()
@@ -95,7 +98,9 @@ export const getParsedAppointmentData = (formData: ObjectFormData) => {
       .string()
       .min(1, { message: "Este campo es requerido" })
       .max(100, { message: "Este campo excede los 100 caracteres" })
-      .trim(),
+      .refine((hour) => !bookedHours?.includes(hour), {
+        message: "Esta hora ya está reservada",
+      }),
   });
   return formDataSchema.safeParse(formData);
 };
