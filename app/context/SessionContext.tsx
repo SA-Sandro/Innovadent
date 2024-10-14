@@ -2,7 +2,7 @@
 
 import { createContext, useContext, useState, ReactNode, useEffect } from "react";
 import { SessionContextProps, SessionData } from "@/lib/definitions";
-import { getPlainObject } from "@/lib/actions";
+import { getPlainSession } from "@/lib/session";
 
 const SessionContext = createContext<SessionContextProps | undefined>(undefined);
 
@@ -18,7 +18,7 @@ export const SessionProvider = ({ children }: { children: ReactNode }) => {
     const [session, setSessionState] = useState<SessionData | undefined>(undefined);
     useEffect(() => {
         const fetchSession = async () => {
-            const actualSession = await getPlainObject();
+            const actualSession = await getPlainSession();
             if (actualSession) {
                 setSessionState({
                     isLoggedIn: actualSession.isLoggedIn,

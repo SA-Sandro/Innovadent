@@ -21,7 +21,7 @@ export default function Routes() {
                         priority={true}
                         src={`/uploads/${session?.image_url}`}
                         alt="Logo de Innovadent"
-                        className="w-auto h-auto rounded-xl"
+                        className="w-auto h-auto rounded-full"
                     />
                 </Link>
                 <h3 className="text-white font-bold text-2xl mt-2">{session?.userName}</h3>
@@ -35,6 +35,14 @@ export default function Routes() {
                     >
                         <CiHome size={20} strokeWidth={0.9} />
                         <span className="ml-1">Inicio</span>
+                    </Link>
+                    <Link
+                        href="/create-appointment"
+                        className={`flex items-center hover:bg-gray-700 rounded-md p-1 ${pathName === "/create-appointment" ? "bg-blue-950" : ""
+                            }`}
+                    >
+                        <CiHome size={20} strokeWidth={0.9} />
+                        <span className="ml-1">Pedir cita</span>
                     </Link>
                 </div>
 

@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
-import { getSession } from "@/lib/actions";
+import getSession from "@/lib/session";
 
 export async function middleware(req: NextRequest) {
   const session = await getSession();
@@ -8,12 +8,12 @@ export async function middleware(req: NextRequest) {
   const role = session?.role;
 
   const protectedRoutes = ["/login", "/register"];
-  const adminRoutes = ["/create-appointment"];
+  const userRoutes = ["/create-appointment"];
 
   if (
-    isLoggedIn &&
-    adminRoutes.includes(req.nextUrl.pathname) &&
-    role !== "admin"
+    !isLoggedIn &&
+    userRoutes.includes(req.nextUrl.pathname) &&
+    role !== "user"
   ) {
     return NextResponse.redirect(new URL("/access-denied", req.url));
   }

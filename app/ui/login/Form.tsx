@@ -36,7 +36,8 @@ export default function Form() {
       setSession({
         isLoggedIn: result.session?.isLoggedIn,
         role: result.session?.role,
-        image_url: result.session?.image_url
+        image_url: result.session?.image_url,
+        userName: result.session?.userName
       })
       router.push('/')
     }

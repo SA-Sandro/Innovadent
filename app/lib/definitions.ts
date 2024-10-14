@@ -33,6 +33,20 @@ export type stateType = {
   error: string | undefined;
 };
 
+export type CredentialsType = {
+  email: string;
+  password: string;
+};
+
+export type appointmentStateType = {
+  error: {
+    reason?: string[] | undefined;
+    date?: string[] | undefined;
+    hour?: string[] | undefined;
+  };
+  isSuccess?: boolean;
+};
+
 export type FileName = {
   fileName: string;
 };
@@ -75,4 +89,18 @@ export interface SessionContextProps {
 
 export const initialState: stateType = {
   error: "",
+};
+
+export const appointmentInitialState: appointmentStateType = {
+  error: {
+    reason: [],
+    date: [],
+    hour: [],
+  },
+};
+
+export type ObjectFormData = {
+  motive: string;
+  date: Date;
+  hour: string;
 };
