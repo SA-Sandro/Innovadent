@@ -3,37 +3,13 @@
 import {
   appointmentStateType,
   CredentialsType,
-  defaultSession,
   SessionData,
   stateType,
 } from "@/lib/definitions";
-import { sessionOptions } from "@/lib/definitions";
-import { getIronSession } from "iron-session";
-import { cookies } from "next/headers";
 import bcrypt from "bcryptjs";
 import { getParsedAppointmentData, getParsedCredentials } from "./schemas";
 import { getUser, postAppointment } from "./data";
-
-export async function getSession() {
-  const session = await getIronSession<SessionData>(cookies(), sessionOptions);
-
-  if (!session.isLoggedIn) {
-    session.isLoggedIn = defaultSession.isLoggedIn;
-  }
-  return session;
-}
-
-export async function getPlainObject() {
-  const session = await getSession();
-  return {
-    userId: session.userId,
-    userName: session.userName,
-    email: session.email,
-    role: session.role,
-    isLoggedIn: session.isLoggedIn,
-    image_url: session.image_url,
-  } as SessionData;
-}
+import getSession, { getPlainSession, saveSession } from "./session";
 
 export async function logoutAction() {
   const session = await getSession();
@@ -48,8 +24,8 @@ export async function loginAction(
     email: formData.get("email") as string,
     password: formData.get("password") as string,
   };
-
   const session = await getSession();
+
   const parsedCredentials = getParsedCredentials(data);
 
   if (parsedCredentials.success) {
@@ -59,15 +35,9 @@ export async function loginAction(
 
     const passwordsMatch = await bcrypt.compare(password, user.password);
     if (passwordsMatch) {
-      session.userId = user.id;
-      session.userName = user.username;
-      session.email = user.email;
-      session.role = user.role;
-      session.isLoggedIn = true;
-      session.image_url = user.image_url;
-      await session.save();
+      saveSession(user);
 
-      const plainObject = await getPlainObject();
+      const plainObject = await getPlainSession();
 
       return {
         session: plainObject,
