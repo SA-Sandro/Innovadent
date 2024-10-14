@@ -1,21 +1,23 @@
 "use client";
 
-import { CustomerData, ErrorState, FileName } from "@/lib/definitions";
+import { CustomerData, ErrorState, FileName, User } from "@/lib/definitions";
 import MailField from "@/ui/register/MailField";
 import PasswordField, { ConfirmPasswordField } from "@/ui/register/PasswordField";
 import PhotoPreviewer from "@/ui/register/PhotoField";
-import UsernameField from "@/ui/register/UsernameField";
 import { FormEvent, useState } from "react";
 import ButtonLoader from "@/ui/ButtonLoader";
 import { useRouter } from "next/navigation";
 import FailedRegistration from "@/ui/modal/FailedRegistration";
 import { fileUpload } from "@/lib/utils";
 import Modal from "@/lib/modal";
-
+import UsernameField from "./UsernameField";
+import { useSession } from "@/context/SessionContext";
+import { saveSession } from "@/lib/session";
 
 const DEFAULT_IMAGE_URL: string = '/images/default.png';
 
 export default function Form() {
+  const { setSession } = useSession();
   const [isLoading, setIsLoading] = useState(false);
   const [errors, setErrors] = useState<ErrorState>({
     userErrors: [],
@@ -29,7 +31,6 @@ export default function Form() {
   let image_url: string | null;
 
   const router = useRouter();
-
   async function onSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
     if (
@@ -47,7 +48,6 @@ export default function Form() {
     const formData = new FormData(event.currentTarget);
 
     try {
-
       if ([formData.get('username'), formData.get('email'), formData.get('password')].some((prop) => prop === "")) {
         new Modal().showModal();
         return;
@@ -56,19 +56,28 @@ export default function Form() {
 
       const file = formData.get('image_url') as File;
 
-      if (file.size > 0) {
+      if (file && file.size > 0) {
         const response: FileName = await fileUpload(formData);
-        image_url = response.fileName
+        image_url = response.fileName;
+      } else {
+        image_url = DEFAULT_IMAGE_URL;
       }
 
       userData = {
         username: formData.get("username") as string,
         email: formData.get("email") as string,
         password: formData.get("password") as string,
-        image_url: image_url ? image_url : DEFAULT_IMAGE_URL,
+        image_url: image_url,
       };
 
-
+      saveSession(userData as User);
+      setSession({
+        userName: userData.username,
+        email: userData.email,
+        role: 'user',
+        image_url: image_url,
+        isLoggedIn: true,
+      })
     } catch (error) {
       console.error("Error en la conexión:", error);
     }
