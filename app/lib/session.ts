@@ -38,7 +38,11 @@ export const saveSession = async (user: User) => {
     session.role = user.role ? user.role : "user";
     session.isLoggedIn = true;
     session.image_url = user.image_url;
-    await session.save();
+    try {
+      await session.save();
+    } catch (error) {
+      console.error("Error en el save: ", error);
+    }
   } catch (error) {
     console.error("Algo ha ocurrido: ", error);
   }
