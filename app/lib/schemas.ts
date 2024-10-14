@@ -22,7 +22,6 @@ export const getParsedCredentials = (data: CredentialsType) => {
 export const getParsedUsername = (username: string) => {
   const usernameSchema = z
     .string()
-    .min(1, { message: "Este campo es requerido. " })
     .min(5, {
       message: "El nombre de usuario debe de tener 5 caracteres como mínimo. ",
     })
@@ -47,7 +46,6 @@ export const getParsedEmail = (numberRows: number, currentEmail: string) => {
 export const getParsedPassword = (password: string) => {
   const passwordSchema = z
     .string()
-    .min(1, { message: "Este campo es requerido" })
     .min(5, { message: "La contraseña debe de tener al menos 5 caracteres. " })
     .max(15, {
       message: "La contraseña debe de tener como máximo 15 caracteres. ",
