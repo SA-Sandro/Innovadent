@@ -1,6 +1,7 @@
 "use client";
 
 import { CiHome } from "react-icons/ci";
+import { CiCalendarDate } from "react-icons/ci";
 import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
@@ -43,6 +44,14 @@ export default function Routes() {
                     >
                         <CiHome size={20} strokeWidth={0.9} />
                         <span className="ml-1">Pedir cita</span>
+                    </Link>
+                    <Link
+                        href="/appointments"
+                        className={`flex items-center hover:bg-gray-700 rounded-md p-1 ${pathName === "/appointments" ? "bg-blue-950" : ""
+                            }`}
+                    >
+                        <CiCalendarDate size={20} strokeWidth={0.9} />
+                        <span className="ml-1">Tus citas</span>
                     </Link>
                 </div>
 

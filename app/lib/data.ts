@@ -1,7 +1,7 @@
 "use server";
 
-import { sql } from "@vercel/postgres";
-import { User } from "./definitions";
+import { QueryResult, QueryResultRow, sql } from "@vercel/postgres";
+import { AppointmentData, User } from "./definitions";
 
 export async function userRegistration(
   username: string,
@@ -67,5 +67,17 @@ export async function getBookedHourByDate(selectedDate: Date) {
     return arrayHours;
   } catch (error) {
     console.error("Error getting booked hours: ", error);
+  }
+}
+
+export async function getUserAppointments(
+  email: string
+): Promise<QueryResult<QueryResultRow> | undefined> {
+  try {
+    const appointments =
+      await sql<AppointmentData>`SELECT appointment_reason, date, hour FROM appointments WHERE user_email=${email}`;
+    return appointments;
+  } catch (error) {
+    console.error("Error getting appointments by user: ", error);
   }
 }
