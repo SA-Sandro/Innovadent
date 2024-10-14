@@ -71,13 +71,6 @@ export default function Form() {
       };
 
       saveSession(userData as User);
-      setSession({
-        userName: userData.username,
-        email: userData.email,
-        role: 'user',
-        image_url: image_url,
-        isLoggedIn: true,
-      })
     } catch (error) {
       console.error("Error en la conexión:", error);
     }
@@ -93,6 +86,13 @@ export default function Form() {
     } catch (error) {
       console.error("Error en la conexión:", error);
     } finally {
+      setSession({
+        userName: userData.username,
+        email: userData.email,
+        role: 'user',
+        image_url: image_url!,
+        isLoggedIn: true,
+      })
       setIsLoading(false);
       router.push("/");
     }
