@@ -24,7 +24,6 @@ export async function loginAction(
     email: formData.get("email") as string,
     password: formData.get("password") as string,
   };
-  const session = await getSession();
 
   const parsedCredentials = getParsedCredentials(data);
 
