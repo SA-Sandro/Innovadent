@@ -56,7 +56,6 @@ export async function postAppointment(
 
 export async function getBookedHourByDate(selectedDate: Date) {
   try {
-    console.log('hola')
     const bookedHoursByDate =
       await sql`SELECT hour FROM appointments WHERE date = ${selectedDate.toISOString()}`;
 
