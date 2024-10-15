@@ -8,7 +8,7 @@ export async function middleware(req: NextRequest) {
   const role = session?.role;
 
   const protectedRoutes = ["/login", "/register"];
-  const userRoutes = ["/create-appointment"];
+  const userRoutes = ["/create-appointment", "/appointments"];
 
   if (
     !isLoggedIn &&
@@ -26,5 +26,5 @@ export async function middleware(req: NextRequest) {
 }
 
 export const config = {
-  matcher: ["/login", "/register", "/create-appointment"],
+  matcher: ["/login", "/register", "/create-appointment", "/appointments"],
 };

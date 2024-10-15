@@ -36,7 +36,7 @@ export const getParsedEmail = (numberRows: number, currentEmail: string) => {
   const mySchema = z
     .string()
     .email({ message: "Formato inválido. " })
-    .refine((email) => numberRows === 0 || email === '', {
+    .refine((email) => numberRows === 0 || email === "", {
       message: "Este email ya existe. ",
     });
 
