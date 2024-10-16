@@ -1,17 +1,23 @@
 export default class Modal {
-  private modalElement: HTMLElement;
+  private modalElement: HTMLElement | null = null;
 
   constructor() {
-    this.modalElement = document.querySelector('#default-modal') as HTMLElement;
+    if (typeof window !== "undefined") {
+      this.modalElement = document.querySelector("#default-modal");
+    }
   }
 
   public showModal(): void {
-    this.modalElement.classList.remove("hidden");
-    this.modalElement.classList.add("flex");
+    if (this.modalElement) {
+      this.modalElement.classList.remove("hidden");
+      this.modalElement.classList.add("flex");
+    }
   }
 
   public closeModal(): void {
-    this.modalElement.classList.add("hidden");
-    this.modalElement.classList.remove("flex");
+    if (this.modalElement) {
+      this.modalElement.classList.add("hidden");
+      this.modalElement.classList.remove("flex");
+    }
   }
 }
