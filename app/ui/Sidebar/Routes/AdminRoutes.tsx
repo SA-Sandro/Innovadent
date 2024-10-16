@@ -39,8 +39,8 @@ export default function AdminRoutes() {
                         <span className="ml-1">Inicio</span>
                     </Link>
                     <Link
-                        href="/"
-                        className={`flex items-center hover:bg-gray-700 rounded-md p-1 ${pathName === "/" ? "bg-blue-950" : ""
+                        href="/appointments"
+                        className={`flex items-center hover:bg-gray-700 rounded-md p-1 ${pathName === "/appointments" ? "bg-blue-950" : ""
                             }`}
                     >
                         <MdOutlineManageAccounts size={20} />
