@@ -54,9 +54,17 @@ export default function UserAppointments() {
     const handleSuspendConfirm = async () => {
         try {
             setIsLoadingWhileDeleting(true);
-            const response = await fetch(`/api/deleteAppointment?id=${selectedAppointmentId}`, { method: 'DELETE' })
+            const response = await fetch(`/api/updateAppointmentState?id=${selectedAppointmentId}`, {
+                method: 'PATCH',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    id: selectedAppointmentId,
+                })
+            })
             if (!response.ok) {
-                throw new Error("Failed to delete the appointment from the database");
+                throw new Error("Failed to update the appointment state");
             }
 
             setAppointments((prevAppointments) => ({

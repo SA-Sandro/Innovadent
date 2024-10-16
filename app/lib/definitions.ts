@@ -111,10 +111,11 @@ export type AppointmentRows = {
 };
 
 export type AppointmentData = {
-  id?:string
+  id?: string;
   username?: string;
   user_email?: string;
   appointment_reason?: string;
   date?: Date;
   hour?: string;
+  state?: string;
 };

@@ -46,9 +46,10 @@ export async function postAppointment(
   date: Date,
   hour: string
 ) {
+  const state: string = "Pendiente";
   try {
-    await sql`INSERT INTO appointments (user_email, appointment_reason, date, hour)
-    VALUES (${user_email}, ${appointment_reason}, ${date.toISOString()}, ${hour})`;
+    await sql`INSERT INTO appointments (user_email, appointment_reason, date, hour, state)
+    VALUES (${user_email}, ${appointment_reason}, ${date.toISOString()}, ${hour}, ${state})`;
   } catch (error) {
     console.error("Error posting appointments ", error);
   }
@@ -74,18 +75,32 @@ export async function getUserAppointments(
   email: string
 ): Promise<QueryResult<QueryResultRow> | undefined> {
   try {
-    const appointments =
-      await sql<AppointmentData>`SELECT id, appointment_reason, date, hour FROM appointments WHERE user_email=${email}`;
-    return appointments;
+    return await sql<AppointmentData>`
+  SELECT id, appointment_reason, date, hour, state
+  FROM appointments
+  WHERE user_email = ${email} AND state NOT IN ('Suspendida', 'Realizada');
+`;
   } catch (error) {
     console.error("Error getting appointments by user: ", error);
   }
 }
 
-export async function deleteAppointment(id: string) {
+export async function getAllUsersAppointment() {
   try {
-    await sql`DELETE FROM appointments WHERE id=${id}`;
+    return await sql<AppointmentData>`
+      SELECT u.username, u.image_url, a.appointment_reason, a.user_email, a.date, a.hour, a.state
+      FROM users AS u
+      JOIN appointments AS a ON u.email = a.user_email;
+      `;
   } catch (error) {
-    console.error("Error deleting the appointment: ", error);
+    console.error("Error getting all users appointment: ", error);
+  }
+}
+
+export async function updateAppointmentState(id: string) {
+  try {
+    await sql`UPDATE appointments SET state='Suspendida' WHERE id = ${id}`;
+  } catch (error) {
+    console.error("Error updating the appointment: ", error);
   }
 }
