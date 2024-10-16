@@ -1,7 +1,7 @@
 "use client";
 
 import { loginAction } from "@/lib/actions";
-import { initialState, stateType } from "@/lib/definitions";
+import { initialState, SessionData, stateType } from "@/lib/definitions";
 import PasswordField from "@/ui/login/PasswordField";
 import Link from "next/link";
 import { useState, useEffect } from "react";
@@ -38,7 +38,7 @@ export default function Form() {
         role: result.session?.role,
         image_url: result.session?.image_url,
         userName: result.session?.userName
-      })
+      } as SessionData)
       router.push('/')
     }
     setIsLoading(false);

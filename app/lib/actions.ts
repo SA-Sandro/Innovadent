@@ -34,10 +34,8 @@ export async function loginAction(
 
     const passwordsMatch = await bcrypt.compare(password, user.password);
     if (passwordsMatch) {
-      saveSession(user);
-
+      await saveSession(user);
       const plainObject = await getPlainSession();
-
       return {
         session: plainObject,
         error: undefined,

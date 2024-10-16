@@ -104,3 +104,17 @@ export type ObjectFormData = {
   date: Date;
   hour: string;
 };
+
+export type AppointmentRows = {
+  rows: Array<AppointmentData>;
+  rowCount: number;
+};
+
+export type AppointmentData = {
+  id?:string
+  username?: string;
+  user_email?: string;
+  appointment_reason?: string;
+  date?: Date;
+  hour?: string;
+};
