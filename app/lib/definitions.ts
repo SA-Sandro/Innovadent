@@ -111,6 +111,7 @@ export type AppointmentRows = {
 };
 
 export type AppointmentData = {
+  id?:string
   username?: string;
   user_email?: string;
   appointment_reason?: string;
