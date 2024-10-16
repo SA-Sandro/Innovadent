@@ -75,9 +75,17 @@ export async function getUserAppointments(
 ): Promise<QueryResult<QueryResultRow> | undefined> {
   try {
     const appointments =
-      await sql<AppointmentData>`SELECT appointment_reason, date, hour FROM appointments WHERE user_email=${email}`;
+      await sql<AppointmentData>`SELECT id, appointment_reason, date, hour FROM appointments WHERE user_email=${email}`;
     return appointments;
   } catch (error) {
     console.error("Error getting appointments by user: ", error);
+  }
+}
+
+export async function deleteAppointment(id: string) {
+  try {
+    await sql`DELETE FROM appointments WHERE id=${id}`;
+  } catch (error) {
+    console.error("Error deleting the appointment: ", error);
   }
 }
