@@ -90,7 +90,8 @@ export async function getAllUsersAppointment() {
     return await sql<AppointmentData>`
       SELECT u.username, u.image_url, a.appointment_reason, a.user_email, a.date, a.hour, a.state
       FROM users AS u
-      JOIN appointments AS a ON u.email = a.user_email;
+      JOIN appointments AS a ON u.email = a.user_email
+      WHERE state NOT IN ('Suspendida', 'Realizada');
       `;
   } catch (error) {
     console.error("Error getting all users appointment: ", error);
