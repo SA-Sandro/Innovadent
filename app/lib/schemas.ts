@@ -102,3 +102,24 @@ export const getParsedAppointmentData = async (formData: ObjectFormData) => {
   });
   return formDataSchema.safeParse(formData);
 };
+
+type UpdateData = {
+  date: Date;
+  hour: string;
+  state: string;
+};
+
+export const getParsedUpdatedAppointment = async (data: UpdateData) => {
+  const bookedHours = await getBookedHourByDate(data.date);
+  const updateDataSchema = z.object({
+    date: z.date().refine((date) => date > new Date(), {
+      message: "La fecha elegida debe ser mayor a la actual",
+    }),
+    hour: z.string().refine((hour) => !bookedHours?.includes(hour), {
+      message: "Esta hora ya está reservada",
+    }),
+    state: z.string(),
+  });
+
+  return updateDataSchema.safeParse(data);
+};
