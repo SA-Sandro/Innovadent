@@ -114,6 +114,7 @@ export type AppointmentData = {
   id?: string;
   username?: string;
   user_email?: string;
+  image_url?: string;
   appointment_reason?: string;
   date?: Date;
   hour?: string;
