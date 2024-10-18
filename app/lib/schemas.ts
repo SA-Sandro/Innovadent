@@ -1,15 +1,7 @@
 import { z } from "zod";
 import { CredentialsType, ObjectFormData } from "./definitions";
 import { getBookedHourByDate } from "./data";
-
-const ACCEPTED_FILE_TYPES = [
-  "image/png",
-  "image/jpg",
-  "image/jpeg",
-  "image/webp",
-];
-const MAX_UPLOAD_SIZE = 1024 * 1024 * 3;
-const REGEX = new RegExp("^(?=.*[A-Z])(?=.*[a-z])(?=.*\\d)[A-Za-z\\d]{5,20}$");
+import { ACCEPTED_FILE_TYPES, MAX_UPLOAD_SIZE, REGEX } from "./constants";
 
 export const getParsedCredentials = (data: CredentialsType) => {
   const parsedCredentials = z
