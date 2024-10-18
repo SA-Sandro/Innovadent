@@ -4,10 +4,14 @@
 import { AppointmentData, AppointmentRows } from "@/lib/definitions";
 import Image from "next/image";
 import { useEffect, useState } from "react";
-import ButtonLoader from "../ButtonLoader";
+import ButtonLoader from "@/ui/ButtonLoader";
+import { BiSolidEdit } from "react-icons/bi";
+import EditingAppointmentPane from "@/ui/appointments/EditingAppointmentPane";
+
 
 export default function AdminAppointment() {
-
+    const [showPane, setShowPane] = useState<boolean>(false);
+    const [appointmentToEdit, setAppointmentToEdit] = useState<AppointmentData>();
     const [allUsersAppointment, setAllUsersAppointment] = useState<AppointmentRows | undefined>(undefined);
     const [isLoading, setIsLoading] = useState<boolean>(true);
 
@@ -31,8 +35,7 @@ export default function AdminAppointment() {
             }
         }
         fetchAllUsersAppointment();
-    }, [])
-
+    }, []);
 
     if (isLoading) {
         return (
@@ -41,6 +44,8 @@ export default function AdminAppointment() {
             </div>
         )
     }
+
+    if (showPane) return <EditingAppointmentPane setShowPane={setShowPane} appointmentToEdit={appointmentToEdit!} />
 
     return (
         <div className="relative bg-white rounded-xl flex justify-center items-center py-10 px-52">
@@ -65,6 +70,9 @@ export default function AdminAppointment() {
                         <th scope="col" className="px-6 py-3">
                             Hora
                         </th>
+                        <th scope="col" className="px-6 py-3">
+                            Estado
+                        </th>
                     </tr>
                 </thead>
                 <tbody className="border-b ">
@@ -75,7 +83,7 @@ export default function AdminAppointment() {
                             </td>
                         </tr>
                     ) : allUsersAppointment?.rows.map((user, index) => (
-                        <tr key={index} className="bg-white border-b cursor-pointer hover:bg-gray-100">
+                        <tr key={index} className="bg-white border-b cursor-pointer relative">
                             <td scope="row" className="px-6 py-4">
                                 <Image className="rounded-full h-auto w-auto" src={`/uploads/${user.image_url}`} height={50} width={50} alt={`Foto de perfil de ${user.username}`} />
                             </td>
@@ -91,8 +99,21 @@ export default function AdminAppointment() {
                             <td className="px-6 py-4 " >
                                 {new Date(user.date!).toLocaleDateString()}
                             </td>
+                            <td className="px-6 py-4" >
+                                {user.hour?.slice(0, 5)}
+                            </td>
                             <td className="px-6 py-4 " >
-                                {user.hour}
+                                {user.state}
+                            </td>
+                            <td>
+                                <div className="absolute opacity-0 hover:opacity-100 transition-opacity duration-100 flex justify-center items-center top-0 bottom-0 right-0 left-0 bg-gray-300/30 cursor-default">
+                                    <button type="button" onClick={() => {
+                                        setShowPane(true)
+                                        setAppointmentToEdit(user);
+                                    }}>
+                                        <BiSolidEdit size={50} color="white" className="bg-green-400 p-1.5 rounded-full cursor-pointer" />
+                                    </button>
+                                </div>
                             </td>
                         </tr>
                     )
