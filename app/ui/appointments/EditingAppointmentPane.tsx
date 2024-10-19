@@ -3,21 +3,34 @@
 import { AVAILABLE_HOURS } from "@/lib/constants";
 import { getBookedHourByDate } from "@/lib/data";
 import { AppointmentData } from "@/lib/definitions";
+import { getParsedAppointmentToUpdate } from "@/lib/schemas";
+import { getLocalDate } from "@/lib/utils";
 import { ChangeEvent, Dispatch, SetStateAction, useState } from "react";
 import { IoMdClose } from "react-icons/io";
 import { IoIosArrowDown } from "react-icons/io";
+import ButtonLoader from "../ButtonLoader";
 
 interface EditingAppointmentPane {
     setShowPane: Dispatch<SetStateAction<boolean>>;
     appointmentToEdit: AppointmentData;
+    fetchAllUsersAppointment: () => void
 }
 
-export default function EditingAppointmentPanel({ setShowPane, appointmentToEdit }: EditingAppointmentPane) {
-    const [date, setDate] = useState(new Date(appointmentToEdit.date!).toISOString().split("T")[0]);
-    const [time, setTime] = useState(appointmentToEdit.hour || "15:00");
-    const [status, setStatus] = useState(appointmentToEdit.state || "Pendiente");
-    const [bookedHours, setBookedHours] = useState<Array<string>>([]);
+interface UpdateErrors {
+    date: string[] | undefined,
+    hour: string[] | undefined,
+    state: string[] | undefined
+}
 
+export default function EditingAppointmentPanel({ setShowPane, appointmentToEdit, fetchAllUsersAppointment }: EditingAppointmentPane) {
+    const [date, setDate] = useState(() => {
+        return getLocalDate(appointmentToEdit.date!);
+    });
+    const [hour, setHour] = useState(appointmentToEdit.hour || "15:00");
+    const [state, setState] = useState(appointmentToEdit.state || "Pendiente");
+    const [bookedHours, setBookedHours] = useState<Array<string>>([]);
+    const [errors, setErrors] = useState<UpdateErrors>();
+    const [isLoading, setIsLoading] = useState<boolean>(false);
 
     const showBookedHours = async (date: Date) => {
         const result = await getBookedHourByDate(date);
@@ -30,19 +43,57 @@ export default function EditingAppointmentPanel({ setShowPane, appointmentToEdit
     };
 
     const handleTimeChange = (event: ChangeEvent<HTMLSelectElement>) => {
-        console.log(event.target.value)
-        setTime(event.target.value);
+        setHour(event.target.value);
     };
 
-    const handleStatusChange = (event: ChangeEvent<HTMLSelectElement>) => {
-        setStatus(event.target.value);
+    const handleStateChange = (event: ChangeEvent<HTMLSelectElement>) => {
+        setState(event.target.value);
     };
+
+    const updateAppointment = async () => {
+        setIsLoading(true);
+        const data = {
+            date: new Date(date),
+            hour: hour,
+            state: state
+        }
+
+        const parsedData = await getParsedAppointmentToUpdate(data);
+        if (!parsedData.success) {
+            setErrors({
+                date: parsedData.error.formErrors.fieldErrors.date,
+                hour: parsedData.error.formErrors.fieldErrors.hour,
+                state: parsedData.error.formErrors.fieldErrors.state,
+            })
+            setIsLoading(false);
+        }
+
+        try {
+            await fetch(`/api/updateAppointment`, {
+                method: 'PATCH',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    id: appointmentToEdit.id,
+                    date: parsedData.data?.date as Date,
+                    hour: parsedData.data?.hour,
+                    state: parsedData.data?.state,
+                })
+            })
+        } catch (error) {
+            throw new Error('Failed to update the appointment')
+        } finally {
+            setIsLoading(false);
+            fetchAllUsersAppointment();
+            setShowPane(false);
+        }
+    }
 
     return (
         <div
             id="default-modal"
             tabIndex={-1}
-            aria-hidden="true"
             className="flex backdrop-brightness-50 overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 justify-center items-center w-full md:inset-0 h-full"
         >
             <div className="relative p-4 w-full max-w-md">
@@ -60,7 +111,7 @@ export default function EditingAppointmentPanel({ setShowPane, appointmentToEdit
                         </button>
                     </div>
 
-                    <div className="space-y-2 p-4 [&_svg]:open:-rotate-180">
+                    <div className="space-y-2 p-4">
                         <details className="border-2 p-4 [&_svg]:open:-rotate-180">
                             <summary className="flex cursor-pointer list-none items-center gap-4">
                                 <IoIosArrowDown className="rotate-0 transform text-blue-700 transition-all duration-300" />
@@ -72,6 +123,11 @@ export default function EditingAppointmentPanel({ setShowPane, appointmentToEdit
                                 value={date}
                                 onChange={handleDateChange}
                             />
+                            {errors && errors.date && (
+                                <div>
+                                    {errors.date.map((error, index) => <label key={index} className="text-xs font-mono text-red-500">{error}</label>)}
+                                </div>
+                            )}
                         </details>
 
                         <details className="border-2 p-4 [&_svg]:open:-rotate-180">
@@ -79,7 +135,7 @@ export default function EditingAppointmentPanel({ setShowPane, appointmentToEdit
                                 <IoIosArrowDown className="rotate-0 transform text-blue-700 transition-all duration-300" />
                                 <div>Hora</div>
                             </summary>
-                            <select onChange={handleTimeChange} id="hour" name="hour" value={time} className="text-gray-800 bg-white border border-gray-300 w-full mt-3 text-sm px-4 py-3 rounded-md outline-blue-500 cursor-pointer">
+                            <select onChange={handleTimeChange} id="hour" name="hour" value={hour} className="text-gray-800 bg-white border border-gray-300 w-full mt-3 text-sm px-4 py-3 rounded-md outline-blue-500 cursor-pointer">
                                 {AVAILABLE_HOURS.map((hour) => (
                                     <option key={hour} value={hour} className={bookedHours.includes(hour) ? 'bg-red-500 text-white flex' : ''}>
                                         {hour.slice(0, 5)}
@@ -95,8 +151,8 @@ export default function EditingAppointmentPanel({ setShowPane, appointmentToEdit
                             </summary>
                             <select
                                 className="text-gray-800 bg-white border border-gray-300 w-full text-sm px-4 mt-3 py-3 rounded-md outline-blue-500 cursor-pointer"
-                                value={status}
-                                onChange={handleStatusChange}
+                                value={state}
+                                onChange={handleStateChange}
                             >
                                 <option value="Pendiente">Pendiente</option>
                                 <option value="Realizado">Realizado</option>
@@ -114,10 +170,11 @@ export default function EditingAppointmentPanel({ setShowPane, appointmentToEdit
                             Volver
                         </button>
                         <button
+                            onClick={updateAppointment}
                             type="button"
                             className="text-white bg-green-400 hover:bg-green-600 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center"
                         >
-                            Editar
+                            {isLoading ? <ButtonLoader /> : 'Editar'}
                         </button>
                     </div>
                 </div>
