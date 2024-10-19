@@ -88,7 +88,7 @@ export async function getUserAppointments(
 export async function getAllUsersAppointment() {
   try {
     return await sql<AppointmentData>`
-      SELECT u.username, u.image_url, a.appointment_reason, a.user_email, a.date, a.hour, a.state
+      SELECT u.username, u.image_url, a.appointment_reason, a.id, a.user_email, a.date, a.hour, a.state
       FROM users AS u
       JOIN appointments AS a ON u.email = a.user_email
       WHERE state NOT IN ('Suspendida', 'Realizada');
@@ -101,6 +101,21 @@ export async function getAllUsersAppointment() {
 export async function updateAppointmentState(id: string) {
   try {
     await sql`UPDATE appointments SET state='Suspendida' WHERE id = ${id}`;
+  } catch (error) {
+    console.error("Error updating the appointment: ", error);
+  }
+}
+
+export async function updateAppointment(
+  id: string,
+  date: Date,
+  hour: string,
+  state: string
+) {
+  try {
+    await sql`UPDATE appointments SET state = ${state}, date = ${new Date(
+      date
+    ).toISOString()}, hour = ${hour} WHERE id = ${id}`;
   } catch (error) {
     console.error("Error updating the appointment: ", error);
   }
