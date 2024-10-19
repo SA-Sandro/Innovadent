@@ -109,7 +109,7 @@ type UpdateData = {
   state: string;
 };
 
-export const getParsedUpdatedAppointment = async (data: UpdateData) => {
+export const getParsedAppointmentToUpdate = async (data: UpdateData) => {
   const bookedHours = await getBookedHourByDate(data.date);
   const updateDataSchema = z.object({
     date: z.date().refine((date) => date > new Date(), {
