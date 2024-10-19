@@ -54,7 +54,7 @@ export default function UserAppointments() {
     const handleSuspendConfirm = async () => {
         try {
             setIsLoadingWhileDeleting(true);
-            const response = await fetch(`/api/updateAppointmentState?id=${selectedAppointmentId}`, {
+            const response = await fetch(`/api/updateAppointment`, {
                 method: 'PATCH',
                 headers: {
                     'Content-Type': 'application/json'
