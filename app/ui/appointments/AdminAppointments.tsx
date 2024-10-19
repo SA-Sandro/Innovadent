@@ -15,25 +15,26 @@ export default function AdminAppointment() {
     const [allUsersAppointment, setAllUsersAppointment] = useState<AppointmentRows | undefined>(undefined);
     const [isLoading, setIsLoading] = useState<boolean>(true);
 
-    useEffect(() => {
-        const fetchAllUsersAppointment = async () => {
-            try {
-                setIsLoading(true);
-                const response = await fetch('/api/getAllUsersAppointment');
-                if (!response.ok) {
-                    throw new Error('Error trying to fetch the users appointment');
-                }
-                const data = await response.json();
-                setAllUsersAppointment({
-                    rows: data.rows as AppointmentData[],
-                    rowCount: data.rowCount
-                });
-            } catch (error) {
-                console.error(error);
-            } finally {
-                setIsLoading(false);
+    const fetchAllUsersAppointment = async () => {
+        try {
+            setIsLoading(true);
+            const response = await fetch('/api/getAllUsersAppointment');
+            if (!response.ok) {
+                throw new Error('Error trying to fetch the users appointment');
             }
+            const data = await response.json();
+            setAllUsersAppointment({
+                rows: data.rows as AppointmentData[],
+                rowCount: data.rowCount
+            });
+        } catch (error) {
+            console.error(error);
+        } finally {
+            setIsLoading(false);
         }
+    }
+
+    useEffect(() => {
         fetchAllUsersAppointment();
     }, []);
 
@@ -44,8 +45,7 @@ export default function AdminAppointment() {
             </div>
         )
     }
-
-    if (showPane) return <EditingAppointmentPane setShowPane={setShowPane} appointmentToEdit={appointmentToEdit!} />
+    if (showPane) return <EditingAppointmentPane setShowPane={setShowPane} appointmentToEdit={appointmentToEdit!} fetchAllUsersAppointment={fetchAllUsersAppointment} />
 
     return (
         <div className="relative bg-white rounded-xl flex justify-center items-center py-10 px-52">
@@ -82,34 +82,34 @@ export default function AdminAppointment() {
                                 No hay ninguna cita pendiente
                             </td>
                         </tr>
-                    ) : allUsersAppointment?.rows.map((user, index) => (
+                    ) : allUsersAppointment?.rows.map((userAppointment, index) => (
                         <tr key={index} className="bg-white border-b cursor-pointer relative">
                             <td scope="row" className="px-6 py-4">
-                                <Image className="rounded-full h-auto w-auto" src={`/uploads/${user.image_url}`} height={50} width={50} alt={`Foto de perfil de ${user.username}`} />
+                                <Image className="rounded-full h-auto w-auto" src={`/uploads/${userAppointment.image_url}`} height={50} width={50} alt={`Foto de perfil de ${userAppointment.username}`} />
                             </td>
                             <td scope="row" className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap">
-                                {user.username}
+                                {userAppointment.username}
                             </td>
                             <td className="px-6 py-4 text-center">
-                                {user.user_email}
+                                {userAppointment.user_email}
                             </td>
                             <td className="px-6 py-4">
-                                {user.appointment_reason}
+                                {userAppointment.appointment_reason}
                             </td>
                             <td className="px-6 py-4 " >
-                                {new Date(user.date!).toLocaleDateString()}
+                                {new Date(userAppointment.date!).toLocaleDateString()}
                             </td>
                             <td className="px-6 py-4" >
-                                {user.hour?.slice(0, 5)}
+                                {userAppointment.hour?.slice(0, 5)}
                             </td>
                             <td className="px-6 py-4 " >
-                                {user.state}
+                                {userAppointment.state}
                             </td>
                             <td>
                                 <div className="absolute opacity-0 hover:opacity-100 transition-opacity duration-100 flex justify-center items-center top-0 bottom-0 right-0 left-0 bg-gray-300/30 cursor-default">
                                     <button type="button" onClick={() => {
                                         setShowPane(true)
-                                        setAppointmentToEdit(user);
+                                        setAppointmentToEdit(userAppointment);
                                     }}>
                                         <BiSolidEdit size={50} color="white" className="bg-green-400 p-1.5 rounded-full cursor-pointer" />
                                     </button>
