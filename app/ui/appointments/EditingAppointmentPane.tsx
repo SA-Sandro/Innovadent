@@ -66,6 +66,7 @@ export default function EditingAppointmentPanel({ setShowPane, appointmentToEdit
                 state: parsedData.error.formErrors.fieldErrors.state,
             })
             setIsLoading(false);
+            return;
         }
 
         try {
