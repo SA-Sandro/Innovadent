@@ -26,15 +26,19 @@ export default function Appointment() {
       new Modal().showModal();
       clearForm();
     }
-  }, [state.isSuccess])
+  }, [state.appointmentDate, state.isSuccess])
 
   const clearForm = () => {
     const motiveSelect = document.getElementById('motive') as HTMLSelectElement;
     motiveSelect.selectedIndex = 0;
 
-    const otherMotive = document.getElementById('other') as HTMLInputElement
-    otherMotive.value = '';
-    setSelectValue('');
+    if (selectValue === 'Otros') {
+      const otherMotive = document.getElementById('other') as HTMLInputElement;
+      if (otherMotive) {
+        otherMotive.value = '';
+      }
+      setSelectValue('');
+    }
 
     const date = document.getElementById('date') as HTMLInputElement;
     date.value = '';
