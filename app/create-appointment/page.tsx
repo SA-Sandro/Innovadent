@@ -16,8 +16,8 @@ export default function Appointment() {
   const [bookedHours, setBookedHours] = useState<Array<string>>([]);
 
   const showBookedHours = async (event: ChangeEvent<HTMLInputElement>) => {
-    const selectedDate = event.target.value;
-    const result = await getBookedHourByDate(new Date(selectedDate));
+    const selectedDate = new Date(event.target.value);
+    const result = await getBookedHourByDate(selectedDate);
     setBookedHours(result || []);
   };
 
