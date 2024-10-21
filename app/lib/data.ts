@@ -58,7 +58,7 @@ export async function postAppointment(
 export async function getBookedHourByDate(selectedDate: Date) {
   try {
     const bookedHoursByDate =
-      await sql`SELECT hour FROM appointments WHERE date = ${selectedDate.toISOString()}`;
+      await sql`SELECT hour FROM appointments WHERE date = ${selectedDate.toISOString()} AND state NOT IN ('Suspendida', 'Realizada')`;
 
     if (!bookedHoursByDate || bookedHoursByDate.rowCount! < 1) return undefined;
 
