@@ -32,6 +32,10 @@ export default function Appointment() {
     const motiveSelect = document.getElementById('motive') as HTMLSelectElement;
     motiveSelect.selectedIndex = 0;
 
+    const otherMotive = document.getElementById('other') as HTMLInputElement
+    otherMotive.value = '';
+    setSelectValue('');
+
     const date = document.getElementById('date') as HTMLInputElement;
     date.value = '';
 
