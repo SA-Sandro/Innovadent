@@ -1,6 +1,7 @@
 'use client'
 
 import { createAppointment } from "@/lib/actions";
+import { AVAILABLE_HOURS } from "@/lib/constants";
 import { getBookedHourByDate } from "@/lib/data";
 import { appointmentInitialState } from "@/lib/definitions";
 import Modal from "@/lib/modal";
@@ -13,11 +14,6 @@ export default function Appointment() {
   const [selectValue, setSelectValue] = useState<string>();
   const [state, action] = useFormState(createAppointment, appointmentInitialState);
   const [bookedHours, setBookedHours] = useState<Array<string>>([]);
-
-  const AVAILABLE_HOURS = [
-    '09:00:00', '10:00:00', '11:00:00', '12:00:00', '13:00:00', '14:00:00',
-    '15:00:00', '16:00:00', '17:00:00'
-  ];
 
   const showBookedHours = async (event: ChangeEvent<HTMLInputElement>) => {
     const selectedDate = event.target.value;
