@@ -7,7 +7,7 @@ import { appointmentInitialState } from "@/lib/definitions";
 import Modal from "@/lib/modal";
 import SuccessAppointment from "@/ui/modal/SuccessAppointment";
 import SubmitButton from "@/ui/SubmitButton";
-import { ChangeEvent, useEffect, useState } from "react"
+import { ChangeEvent, useCallback, useEffect, useState } from "react"
 import { useFormState } from "react-dom";
 
 export default function Appointment() {
@@ -21,14 +21,7 @@ export default function Appointment() {
     setBookedHours(result || []);
   };
 
-  useEffect(() => {
-    if (state.isSuccess) {
-      new Modal().showModal();
-      clearForm();
-    }
-  }, [state.appointmentDate, state.isSuccess])
-
-  const clearForm = () => {
+  const clearForm = useCallback(() => {
     const motiveSelect = document.getElementById('motive') as HTMLSelectElement;
     motiveSelect.selectedIndex = 0;
 
@@ -45,7 +38,16 @@ export default function Appointment() {
 
     const hour = document.getElementById('hour') as HTMLSelectElement;
     hour.selectedIndex = 0;
-  }
+  }, [selectValue])
+  
+  useEffect(() => {
+    if (state.isSuccess) {
+      new Modal().showModal();
+      clearForm();
+    }
+  }, [clearForm, state.appointmentDate, state.isSuccess])
+
+  
 
   return (
     <div className="relative flex justify-center items-center bg-white p-10 rounded-xl w-[35%]">
