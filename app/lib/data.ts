@@ -120,3 +120,16 @@ export async function updateAppointment(
     console.error("Error updating the appointment: ", error);
   }
 }
+
+export async function getAllNotPendingAppointments() {
+  try {
+    return await sql<AppointmentData>`
+      SELECT u.username, u.image_url, a.appointment_reason, a.id, a.user_email, a.date, a.hour, a.state
+      FROM users AS u
+      JOIN appointments AS a ON u.email = a.user_email
+      WHERE state != 'Pendiente';
+      `;
+  } catch (error) {
+    console.error("Error getting all the non-pending appointments: ", error);
+  }
+}
