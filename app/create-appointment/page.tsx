@@ -16,8 +16,8 @@ export default function Appointment() {
   const [bookedHours, setBookedHours] = useState<Array<string>>([]);
 
   const showBookedHours = async (event: ChangeEvent<HTMLInputElement>) => {
-    const selectedDate = new Date(event.target.value);
-    const result = await getBookedHourByDate(selectedDate);
+    const formattedDate = new Date(event.target.value);
+    const result = await getBookedHourByDate(new Date(formattedDate));
     setBookedHours(result || []);
   };
 
@@ -45,8 +45,6 @@ export default function Appointment() {
       new Modal().showModal();
     }
   }, [state.appointmentDate, state.isSuccess])
-
-
 
   return (
     <div className="relative flex justify-center items-center bg-white p-10 rounded-xl w-[35%]">
