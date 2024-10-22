@@ -9,12 +9,12 @@ export async function middleware(req: NextRequest) {
 
   const protectedRoutes = ["/login", "/register"];
   const userRoutes = ["/create-appointment", "/appointments"];
+  const adminRoutes = ["/history"];
 
-  if (
-    !isLoggedIn &&
-    userRoutes.includes(req.nextUrl.pathname) &&
-    role !== "user"
-  ) {
+  if (userRoutes.includes(req.nextUrl.pathname) && role !== "user") {
+    return NextResponse.redirect(new URL("/access-denied", req.url));
+  }
+  if (adminRoutes.includes(req.nextUrl.pathname) && role !== "admin") {
     return NextResponse.redirect(new URL("/access-denied", req.url));
   }
 
@@ -26,5 +26,11 @@ export async function middleware(req: NextRequest) {
 }
 
 export const config = {
-  matcher: ["/login", "/register", "/create-appointment", "/appointments"],
+  matcher: [
+    "/login",
+    "/register",
+    "/create-appointment",
+    "/appointments",
+    "/history",
+  ],
 };
