@@ -7,7 +7,6 @@ export default async function handler(
 ) {
   if (req.method === "GET") {
     try {
-      console.log('hola')
       const allNotPendingAppointments = await getAllNotPendingAppointments();
       return res.status(200).json(allNotPendingAppointments);
     } catch (error) {
