@@ -105,21 +105,38 @@ export const getParsedAppointmentData = async (formData: ObjectFormData) => {
 
 type UpdateData = {
   date: Date;
-  hour: string;
+  hour: string | undefined;
   state: string;
 };
 
-export const getParsedAppointmentToUpdate = async (data: UpdateData) => {
-  const bookedHours = await getBookedHourByDate(data.date);
-  const updateDataSchema = z.object({
-    date: z.date().refine((date) => date > new Date(), {
-      message: "La fecha elegida debe ser mayor a la actual",
-    }),
-    hour: z.string().refine((hour) => !bookedHours?.includes(hour), {
-      message: "Esta hora ya está reservada",
-    }),
-    state: z.string(),
-  });
+export const getParsedAppointmentToUpdate = async (
+  data: UpdateData,
+  hour?: string
+) => {
+  const formattedDate = new Date(data.date).toLocaleDateString();
+  const bookedHours = await getBookedHourByDate(new Date(formattedDate));
+
+  let updateDataSchema;
+
+  if (data.hour === hour) {
+    updateDataSchema = z.object({
+      date: z.date().refine((date) => date > new Date(), {
+        message: "La fecha elegida debe ser mayor a la actual",
+      }),
+      hour: z.string(),
+      state: z.string(),
+    });
+  } else {
+    updateDataSchema = z.object({
+      date: z.date().refine((date) => date > new Date(), {
+        message: "La fecha elegida debe ser mayor a la actual",
+      }),
+      hour: z.string().refine((hour) => !bookedHours?.includes(hour), {
+        message: "Esta hora ya está reservada",
+      }),
+      state: z.string(),
+    });
+  }
 
   return updateDataSchema.safeParse(data);
 };

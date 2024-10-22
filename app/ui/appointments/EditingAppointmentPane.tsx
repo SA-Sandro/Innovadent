@@ -5,7 +5,7 @@ import { getBookedHourByDate } from "@/lib/data";
 import { AppointmentData } from "@/lib/definitions";
 import { getParsedAppointmentToUpdate } from "@/lib/schemas";
 import { getLocalDate } from "@/lib/utils";
-import { ChangeEvent, Dispatch, SetStateAction, useState } from "react";
+import { ChangeEvent, Dispatch, SetStateAction, useEffect, useRef, useState } from "react";
 import { IoMdClose } from "react-icons/io";
 import { IoIosArrowDown } from "react-icons/io";
 import ButtonLoader from "../ButtonLoader";
@@ -33,12 +33,32 @@ export default function EditingAppointmentPanel({ setShowPane, appointmentToEdit
     const [isLoading, setIsLoading] = useState<boolean>(false);
 
     const showBookedHours = async (date: Date) => {
-        const result = await getBookedHourByDate(date);
+        const formattedDate = new Date(date);
+        formattedDate.setDate(formattedDate.getDate() + 1)
+        const result = await getBookedHourByDate(formattedDate);
         setBookedHours(result || []);
     };
 
+    const getStyledHour = (availableHour: string): string => {
+        if (appointmentToEdit.hour === availableHour) {
+            return 'bg-orange-500 text-white flex';
+        }
+        if (bookedHours.includes(availableHour)) {
+            return 'bg-red-500 text-white flex';
+        }
+        return '';
+    }
+
+    const initialDateRef = useRef(appointmentToEdit.date!);
+
+    useEffect(() => {
+        showBookedHours(initialDateRef.current);
+    }, []);
+
     const handleDateChange = (event: ChangeEvent<HTMLInputElement>) => {
-        showBookedHours(new Date(event.target.value))
+        const formattedDate = new Date(event.target.value);
+        formattedDate.setDate(formattedDate.getDate() - 1);
+        showBookedHours(formattedDate)
         setDate(event.target.value);
     };
 
@@ -51,6 +71,14 @@ export default function EditingAppointmentPanel({ setShowPane, appointmentToEdit
     };
 
     const updateAppointment = async () => {
+
+        if (appointmentToEdit.hour === hour &&
+            new Date(appointmentToEdit.date!).toDateString() === new Date(date).toDateString() &&
+            appointmentToEdit.state === state) {
+            setShowPane(false);
+            return;
+        }
+
         setIsLoading(true);
         const data = {
             date: new Date(date),
@@ -58,7 +86,7 @@ export default function EditingAppointmentPanel({ setShowPane, appointmentToEdit
             state: state
         }
 
-        const parsedData = await getParsedAppointmentToUpdate(data);
+        const parsedData = await getParsedAppointmentToUpdate(data, appointmentToEdit.hour);
         if (!parsedData.success) {
             setErrors({
                 date: parsedData.error.formErrors.fieldErrors.date,
@@ -66,6 +94,7 @@ export default function EditingAppointmentPanel({ setShowPane, appointmentToEdit
                 state: parsedData.error.formErrors.fieldErrors.state,
             })
             setIsLoading(false);
+            return;
         }
 
         try {
@@ -136,12 +165,17 @@ export default function EditingAppointmentPanel({ setShowPane, appointmentToEdit
                                 <div>Hora</div>
                             </summary>
                             <select onChange={handleTimeChange} id="hour" name="hour" value={hour} className="text-gray-800 bg-white border border-gray-300 w-full mt-3 text-sm px-4 py-3 rounded-md outline-blue-500 cursor-pointer">
-                                {AVAILABLE_HOURS.map((hour) => (
-                                    <option key={hour} value={hour} className={bookedHours.includes(hour) ? 'bg-red-500 text-white flex' : ''}>
-                                        {hour.slice(0, 5)}
+                                {AVAILABLE_HOURS.map((availableHour) => (
+                                    <option key={availableHour} value={availableHour} className={getStyledHour(availableHour)}>
+                                        {availableHour.slice(0, 5)}
                                     </option>
                                 ))}
                             </select>
+                            {errors && errors.hour && (
+                                <div>
+                                    {errors.hour.map((error, index) => <label key={index} className="text-xs font-mono text-red-500">{error}</label>)}
+                                </div>
+                            )}
                         </details>
 
                         <details className="border-2 p-4 [&_svg]:open:-rotate-180">
@@ -155,8 +189,8 @@ export default function EditingAppointmentPanel({ setShowPane, appointmentToEdit
                                 onChange={handleStateChange}
                             >
                                 <option value="Pendiente">Pendiente</option>
-                                <option value="Realizado">Realizado</option>
-                                <option value="Suspendido">Suspendido</option>
+                                <option value="Realizada">Realizada</option>
+                                <option value="Suspendida">Suspendida</option>
                             </select>
                         </details>
                     </div>

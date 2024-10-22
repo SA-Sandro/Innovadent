@@ -87,5 +87,6 @@ export async function createAppointment(
       reason: undefined,
     },
     isSuccess: true,
+    appointmentDate: `${parsedData.data.date} | ${parsedData.data.hour}`,
   };
 }

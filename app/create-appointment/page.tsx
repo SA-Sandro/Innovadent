@@ -16,21 +16,22 @@ export default function Appointment() {
   const [bookedHours, setBookedHours] = useState<Array<string>>([]);
 
   const showBookedHours = async (event: ChangeEvent<HTMLInputElement>) => {
-    const selectedDate = event.target.value;
-    const result = await getBookedHourByDate(new Date(selectedDate));
+    const formattedDate = new Date(event.target.value);
+    const result = await getBookedHourByDate(new Date(formattedDate));
     setBookedHours(result || []);
   };
-
-  useEffect(() => {
-    if (state.isSuccess) {
-      new Modal().showModal();
-      clearForm();
-    }
-  }, [state.isSuccess])
 
   const clearForm = () => {
     const motiveSelect = document.getElementById('motive') as HTMLSelectElement;
     motiveSelect.selectedIndex = 0;
+
+    if (selectValue === 'Otros') {
+      const otherMotive = document.getElementById('other') as HTMLInputElement;
+      if (otherMotive) {
+        otherMotive.value = '';
+      }
+      setSelectValue('');
+    }
 
     const date = document.getElementById('date') as HTMLInputElement;
     date.value = '';
@@ -38,6 +39,12 @@ export default function Appointment() {
     const hour = document.getElementById('hour') as HTMLSelectElement;
     hour.selectedIndex = 0;
   }
+
+  useEffect(() => {
+    if (state.isSuccess) {
+      new Modal().showModal();
+    }
+  }, [state.appointmentDate, state.isSuccess])
 
   return (
     <div className="relative flex justify-center items-center bg-white p-10 rounded-xl w-[35%]">
@@ -116,7 +123,7 @@ export default function Appointment() {
           <SubmitButton />
         </form>
       </div>
-      <SuccessAppointment />
+      <SuccessAppointment clearForm={clearForm} />
     </div>
   );
 }

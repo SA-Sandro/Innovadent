@@ -63,8 +63,8 @@ export default function AdminEditingAppointment() {
                             </summary>
                             <select className="text-gray-800 bg-white border border-gray-300 w-full text-sm px-4 mt-3 py-3 rounded-md outline-blue-500 cursor-pointer">
                                 <option value="Pendiente" defaultChecked>Pendiente</option>
-                                <option value="Realizado">Realizado</option>
-                                <option value="Suspendido">Suspendido</option>
+                                <option value="Realizada">Realizada</option>
+                                <option value="Suspendida">Suspendida</option>
                             </select>
                         </details>
                     </div>
