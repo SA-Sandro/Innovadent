@@ -29,8 +29,8 @@ export default function LogoutButton() {
 
 
     return (
-        <form onSubmit={handleSubmit} className="cursor-pointer space-x-2 flex items-center bg-gray-600 hover:bg-gray-700 rounded-md p-1   ">
-            <CiLogout size={20} strokeWidth={0.9} />
+        <form onSubmit={handleSubmit} className="cursor-pointer space-x-2 flex items-center bg-gray-600 hover:bg-gray-900 rounded-md p-1   ">
+            <CiLogout size={25} strokeWidth={0.9} />
             <button>Cerrar sesión</button>
         </form>
     )
