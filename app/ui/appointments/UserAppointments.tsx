@@ -88,7 +88,8 @@ export default function UserAppointments() {
     }
 
     return (
-        <div className="relative bg-white rounded-xl flex justify-center items-center py-10 px-52">
+        <div className="relative bg-gray-50 rounded-xl flex flex-col justify-center items-center py-10 px-52 overflow-x-auto shadow-md">
+            <h1 className="text-[#1F2937] bg-[#1F2937]/10 rounded-lg text-center text-3xl font-bold py-5 mb-5 px-32">Tus citas</h1>
             <table className="table-auto" id="table">
                 <thead>
                     <tr className="space-x-10">
@@ -106,7 +107,7 @@ export default function UserAppointments() {
                         </th>
                     </tr>
                 </thead>
-                <tbody className="bg-white border-b">
+                <tbody className="bg-white">
                     {isLoadingWhileDeleting ? (
                         <tr>
                             <td colSpan={4} className="text-center py-4">
@@ -115,7 +116,7 @@ export default function UserAppointments() {
                         </tr>
                     ) : appointments && appointments.rowCount !== 0 ? (
                         appointments!.rows.map((appointment, index) => (
-                            <tr key={index} className="bg-white border-b cursor-pointer hover:bg-gray-100">
+                            <tr key={index} className="bg-white cursor-pointer hover:border-[#1F2973] hover:border odd:bg-white even:bg-[#1F2937]/10">
                                 <th scope="row" className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap">
                                     {appointment.appointment_reason}
                                 </th>
@@ -126,7 +127,7 @@ export default function UserAppointments() {
                                     {appointment.hour}
                                 </td>
                                 <td className="px-6 py-4 flex justify-center items-center" onClick={() => suspendAppointment(appointment.id!)}>
-                                    <CiSquareRemove size={30} color="red" />
+                                    <CiSquareRemove size={30} color="red" className="hover:scale-125 duration-75" />
                                 </td>
                             </tr>
                         ))
