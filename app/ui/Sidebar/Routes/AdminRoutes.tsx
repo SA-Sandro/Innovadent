@@ -2,6 +2,7 @@
 
 import { CiHome } from "react-icons/ci";
 import { MdOutlineManageAccounts } from "react-icons/md";
+import { BsClockHistory } from "react-icons/bs";
 import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
@@ -45,6 +46,14 @@ export default function AdminRoutes() {
                     >
                         <MdOutlineManageAccounts size={20} />
                         <span className="ml-1">Gestor de citas</span>
+                    </Link>
+                    <Link
+                        href="/history"
+                        className={`flex items-center hover:bg-gray-700 rounded-md p-1 ${pathName === "/appointments" ? "bg-blue-950" : ""
+                            }`}
+                    >
+                        <BsClockHistory size={20} />
+                        <span className="ml-1.5">Historial</span>
                     </Link>
                 </div>
 
