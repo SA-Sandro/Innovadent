@@ -79,7 +79,7 @@ export default function UserAppointments() {
         }
     }
 
-    if (!isLoadingWhileFetching) {
+    if (isLoadingWhileFetching) {
         return (
             <div className="relative bg-white rounded-xl p-10">
                 <ButtonLoader />
