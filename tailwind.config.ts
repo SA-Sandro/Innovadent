@@ -9,8 +9,11 @@ const config: Config = {
   theme: {
     extend: {
       fontSize: {
-        'xs': '0.8rem'
-      }
+        xs: "0.8rem",
+      },
+      screens: {
+        xs: "360px",
+      },
     },
   },
   plugins: [],
