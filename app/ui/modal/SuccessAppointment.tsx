@@ -18,7 +18,7 @@ export default function SuccessAppointment({ clearForm }: SuccessAppointmentProp
             id="default-modal"
             tabIndex={-1}
             aria-hidden="true"
-            className="flex backdrop-brightness-50 overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 justify-center items-center w-full md:inset-0 h-full"
+            className="hidden backdrop-brightness-50 overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 justify-center items-center w-full md:inset-0 h-full"
         >
             <div className="relative w-full sm:w-[80%] md:w-[70%] lg:w-[50%] xl:w-[40%]">
                 <div className="relative bg-white rounded-lg shadow py-2 px-5">
