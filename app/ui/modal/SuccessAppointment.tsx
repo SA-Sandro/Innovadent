@@ -22,7 +22,7 @@ export default function SuccessAppointment({ clearForm }: SuccessAppointmentProp
         >
             <div className="relative w-full sm:w-[80%] md:w-[70%] lg:w-[50%] xl:w-[40%]">
                 <div className="relative bg-white rounded-lg shadow py-2 px-5">
-                    <div className="flex items-center justify-between p-4 md:p-5 border-b rounded-t dark:border-gray-600">
+                    <div className="flex items-center justify-between p-4 md:p-5 border-b rounded-t">
                         <div className="flex items-center">
                             <h3 className="text-lg font-bold text-green-500 flex items-center">
                                 La cita ha sido reservada correctamente
@@ -30,13 +30,13 @@ export default function SuccessAppointment({ clearForm }: SuccessAppointmentProp
                         </div>
                         <button
                             type="button"
-                            className="text-gray-400 bg-transparent hover:bg-gray-900 rounded-lg text-sm w-8 h-8 ms-auto inline-flex justify-center items-center dark:hover:bg-gray-600 dark:hover:text-white"
+                            className="text-gray-400 bg-transparent hover:bg-gray-900 rounded-lg text-sm w-8 h-8 ms-auto inline-flex justify-center items-center"
                             onClick={() => modal.closeModal()}
                         >
                             <IoMdClose size={20} className="stroke-black hover:stroke-white" />
                         </button>
                     </div>
-                    <div className="flex items-center justify-between p-4 md:p-5 border-t border-gray-200 rounded-b dark:border-gray-600 ">
+                    <div className="flex items-center justify-between p-4 md:p-5 border-t border-gray-200 rounded-b">
                         <div className="flex flex-col space-y-2 xs:flex-row xs:space-x-2 xs:space-y-0">
                             <button
                                 onClick={() => {
