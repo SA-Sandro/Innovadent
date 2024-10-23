@@ -21,3 +21,6 @@ export const MAX_UPLOAD_SIZE = 1024 * 1024 * 3;
 export const REGEX = new RegExp(
   "^(?=.*[A-Z])(?=.*[a-z])(?=.*\\d)[A-Za-z\\d]{5,20}$"
 );
+
+export const DEFAULT_IMAGE_URL: string = "/images/default.png";
+
