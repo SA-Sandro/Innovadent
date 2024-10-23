@@ -8,7 +8,7 @@ export async function middleware(req: NextRequest) {
   const role = session?.role;
 
   const protectedRoutes = ["/login", "/register"];
-  const userRoutes = ["/create-appointment", "/appointments"];
+  const userRoutes = ["/create-appointment"];
   const adminRoutes = ["/history"];
 
   if (userRoutes.includes(req.nextUrl.pathname) && role !== "user") {
