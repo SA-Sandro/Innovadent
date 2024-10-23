@@ -1,5 +1,5 @@
 import "@/globals.css";
-import { montserrat } from "@/ui/fonts";
+import { poppins } from "@/ui/fonts";
 import Sidebar from "@/ui/sidebar/Sidebar";
 import Footer from "@/ui/footer/Footer";
 import { SessionProvider } from "@/context/SessionContext";
@@ -17,12 +17,12 @@ export default function RootLayout({
         <title>Innovadent</title>
       </head>
       <body
-        className={`${montserrat.className} antialiased h-full`}
+        className={`${poppins.className} antialiased h-full relative`}
         suppressHydrationWarning={true}
       >
         <SessionProvider>
           <Sidebar />
-          <main className="relative sm:ml-64 py-10 flex justify-center items-center">
+          <main className="relative sm:ml-64 pt-10 pb-20 flex justify-center items-center">
             {children}
           </main>
           <Footer />
