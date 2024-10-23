@@ -48,8 +48,8 @@ export default function Appointment() {
 
   return (
     <div className="relative flex justify-center items-center w-full">
-      <div className="bg-white rounded-xl w-full mx-5 px-2 py-5 sm:p-10 sm:w-[70%] lg:w-[50%] xl:w-[40%]">
-        <h1 className="text-[#1F2937<] text-center text-3xl font-bold mb-5">Reservar cita</h1>
+      <div className="bg-gray-50 rounded-xl w-full mx-5 px-2 py-5 sm:p-10 sm:w-[70%] lg:w-[50%] xl:w-[40%]">
+        <h1 className="text-[#1F2937] bg-[#1F2937]/10 rounded-lg text-center text-3xl font-bold py-5 mb-5">¡Reserva una cita!</h1>
         <form action={action} className="space-y-5">
           <div>
             <label className="text-gray-800 text-sm mb-2 block">
