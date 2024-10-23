@@ -43,7 +43,7 @@ export async function loginAction(
     }
   }
 
-  return { session: null, error: "El usuario o la contraseña es incorrecto" };
+  return { session: null, error: "Las credenciales aportadas son incorrectas" };
 }
 
 export async function createAppointment(
