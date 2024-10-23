@@ -37,7 +37,7 @@ export default function AdminRoutes() {
                             }`}
                     >
                         <CiHome size={25} strokeWidth={0.9} />
-                        <span className="ml-1">Inicio</span>
+                        <span className="ml-1 mt-0.5">Inicio</span>
                     </Link>
                     <Link
                         href="/appointments"
