@@ -15,7 +15,7 @@ export default function AdminRoutes() {
     const { session } = useSession();
 
     return (
-        <div className="px-3 py-4 bg-[#1F2937] h-full">
+        <div className="px-3 py-4 h-full">
             <div className="flex flex-col items-center mt-5 cursor-pointer">
                 <Link href="/">
                     <Image
