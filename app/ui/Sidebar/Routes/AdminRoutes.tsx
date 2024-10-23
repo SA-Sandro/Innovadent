@@ -49,7 +49,7 @@ export default function AdminRoutes() {
                     </Link>
                     <Link
                         href="/history"
-                        className={`flex items-center hover:bg-gray-900 rounded-md p-1 ${pathName === "/appointments" ? "bg-blue-950" : ""
+                        className={`flex items-center hover:bg-gray-900 rounded-md p-1 ${pathName === "/history" ? "bg-blue-950" : ""
                             }`}
                     >
                         <BsClockHistory size={20} />
