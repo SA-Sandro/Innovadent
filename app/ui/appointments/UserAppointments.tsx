@@ -79,7 +79,7 @@ export default function UserAppointments() {
         }
     }
 
-    if (isLoadingWhileFetching) {
+    if (!isLoadingWhileFetching) {
         return (
             <div className="relative bg-white rounded-xl p-10">
                 <ButtonLoader />
@@ -88,53 +88,77 @@ export default function UserAppointments() {
     }
 
     return (
-        <div className="relative bg-gray-50 rounded-xl flex flex-col justify-center items-center py-10 px-52 overflow-x-auto shadow-md">
-            <h1 className="text-[#1F2937] bg-[#1F2937]/10 rounded-lg text-center text-3xl font-bold py-5 mb-5 px-32">Tus citas</h1>
-            <table className="table-auto" id="table">
-                <thead>
-                    <tr className="space-x-10">
-                        <th scope="col" className="px-6 py-3">
-                            Motivo de la consulta
-                        </th>
-                        <th scope="col" className="px-6 py-3">
-                            Fecha de la cita
-                        </th>
-                        <th scope="col" className="px-6 py-3">
-                            Hora
-                        </th>
-                        <th scope="col" className="px-6 py-3">
-                            Suspender cita
-                        </th>
-                    </tr>
-                </thead>
-                <tbody className="bg-white">
-                    {isLoadingWhileDeleting ? (
-                        <tr>
-                            <td colSpan={4} className="text-center py-4">
-                                <ButtonLoader />
-                            </td>
-                        </tr>
-                    ) : appointments && appointments.rowCount !== 0 ? (
-                        appointments!.rows.map((appointment, index) => (
-                            <tr key={index} className="bg-white cursor-pointer hover:border-[#1F2973] hover:border odd:bg-white even:bg-[#1F2937]/10">
-                                <th scope="row" className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap">
-                                    {appointment.appointment_reason}
+        <div className="relative w-full flex justify-center mx-10">
+            <div className="bg-gray-50 rounded-xl items-center w-full max-w-[1400px]">
+                <h1 className="text-[#1F2937] bg-[#1F2937]/10 rounded-lg text-center text-2xl sm:text-3xl font-bold py-5 mx-auto my-5 px-10 max-w-80">
+                    Tus citas
+                </h1>
+                <div className="overflow-x-auto max-w-2xl mx-auto">
+                    <table id="table" className="m-5">
+                        <thead>
+                            <tr className="text-xs sm:text-sm bg-gray-100">
+                                <th scope="col" className="px-4 py-2 sm:px-6 sm:py-3 text-center">
+                                    Motivo de la consulta
                                 </th>
-                                <td className="px-6 py-4 text-center">
-                                    {new Date(appointment.date!).toLocaleDateString()}
-                                </td>
-                                <td className="px-6 py-4">
-                                    {appointment.hour}
-                                </td>
-                                <td className="px-6 py-4 flex justify-center items-center" onClick={() => suspendAppointment(appointment.id!)}>
-                                    <CiSquareRemove size={30} color="red" className="hover:scale-125 duration-75" />
-                                </td>
+                                <th scope="col" className="px-4 py-2 sm:px-6 sm:py-3 text-center">
+                                    Fecha de la cita
+                                </th>
+                                <th scope="col" className="px-4 py-2 sm:px-6 sm:py-3 text-center">
+                                    Hora
+                                </th>
+                                <th scope="col" className="px-4 py-2 sm:px-6 sm:py-3 text-center">
+                                    Suspender cita
+                                </th>
                             </tr>
-                        ))
-                    ) : <tr className="bg-white border-b cursor-pointer hover:bg-gray-100"><td colSpan={5} className="text-center">No tienes ninguna cita pendiente</td></tr>}
-                </tbody>
-            </table>
+                        </thead>
+                        <tbody className="bg-white overflow-x-auto">
+                            {isLoadingWhileDeleting ? (
+                                <tr>
+                                    <td colSpan={4} className="text-center py-4">
+                                        <ButtonLoader />
+                                    </td>
+                                </tr>
+                            ) : appointments && appointments.rowCount !== 0 ? (
+                                appointments.rows.map((appointment, index) => (
+                                    <tr key={index} className="bg-white cursor-pointer hover:border-[#1F2973] hover:border odd:bg-white even:bg-[#1F2937]/10">
+                                        <th
+                                            className="px-4 py-2 sm:px-6 sm:py-4 font-medium text-gray-900 whitespace-nowrap text-center"
+                                        >
+                                            {appointment.appointment_reason}
+                                        </th>
+                                        <td className="px-4 py-2 sm:px-6 sm:py-4 text-center">
+                                            {new Date(appointment.date!).toLocaleDateString()}
+                                        </td>
+                                        <td className="px-4 py-2 sm:px-6 sm:py-4 text-center">
+                                            {appointment.hour}
+                                        </td>
+                                        <td
+                                            className="px-4 py-2 sm:px-6 sm:py-4 flex justify-center items-center text-center"
+                                            onClick={() => suspendAppointment(appointment.id!)}
+                                        >
+                                            <CiSquareRemove
+                                                size={24}
+                                                color="red"
+                                                className="hover:scale-125 duration-75"
+                                            />
+                                        </td>
+                                    </tr>
+                                ))
+                            ) : (
+                                <tr className="bg-white border-b">
+                                    <td colSpan={4} className="text-center py-4">
+                                        No tienes ninguna cita pendiente
+                                    </td>
+                                </tr>
+                            )}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+
             <WarningAppointmentDelete handleSuspendConfirm={handleSuspendConfirm} />
         </div>
+
     );
 }
