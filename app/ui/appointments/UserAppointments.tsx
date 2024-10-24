@@ -90,7 +90,7 @@ export default function UserAppointments() {
     return (
         <div className="relative w-full flex justify-center mx-10">
             <div className="bg-gray-50 rounded-xl items-center w-full max-w-[1400px]">
-                <h1 className="text-[#1F2937] bg-[#1F2937]/10 rounded-lg text-center text-2xl sm:text-3xl font-bold py-5 mx-auto my-5 px-10 max-w-80">
+                <h1 className="text-[#1F2937] bg-[#1F2937]/10 rounded-lg text-center text-2xl sm:text-3xl font-bold py-5 mt-5 mx-auto px-10 max-w-80">
                     Tus citas
                 </h1>
                 <div className="overflow-x-auto max-w-2xl mx-auto">
@@ -120,20 +120,20 @@ export default function UserAppointments() {
                                 </tr>
                             ) : appointments && appointments.rowCount !== 0 ? (
                                 appointments.rows.map((appointment, index) => (
-                                    <tr key={index} className="bg-white cursor-pointer hover:border-[#1F2973] hover:border odd:bg-white even:bg-[#1F2937]/10">
+                                    <tr key={index} className="bg-white cursor-pointer hover:border-[#1F2973] hover:border odd:bg-white even:bg-[#1F2937]/10 text-center">
                                         <th
-                                            className="px-4 py-2 sm:px-6 sm:py-4 font-medium text-gray-900 whitespace-nowrap text-center"
+                                            className="px-4 py-2 sm:px-6 sm:py-4 font-medium text-gray-900 whitespace-nowrap "
                                         >
                                             {appointment.appointment_reason}
                                         </th>
-                                        <td className="px-4 py-2 sm:px-6 sm:py-4 text-center">
+                                        <td className="px-4 py-2 sm:px-6 sm:py-4 ">
                                             {new Date(appointment.date!).toLocaleDateString()}
                                         </td>
-                                        <td className="px-4 py-2 sm:px-6 sm:py-4 text-center">
+                                        <td className="px-4 py-2 sm:px-6 sm:py-4 ">
                                             {appointment.hour}
                                         </td>
                                         <td
-                                            className="px-4 py-2 sm:px-6 sm:py-4 flex justify-center items-center text-center"
+                                            className="px-4 py-2 sm:px-6 sm:py-4 flex justify-center items-center "
                                             onClick={() => suspendAppointment(appointment.id!)}
                                         >
                                             <CiSquareRemove
@@ -155,8 +155,6 @@ export default function UserAppointments() {
                     </table>
                 </div>
             </div>
-
-
             <WarningAppointmentDelete handleSuspendConfirm={handleSuspendConfirm} />
         </div>
 

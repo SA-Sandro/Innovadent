@@ -57,7 +57,7 @@ export default function AdminAppointment() {
                     <table id="table">
                         <thead>
                             <tr className="space-x-10">
-                                <th scope="col" className="px-6 py-3">
+                                <th scope="col" className="px-6 py-3 text-gray-50">
                                     Imagen
                                 </th>
                                 <th scope="col" className="px-6 py-3">
@@ -88,26 +88,26 @@ export default function AdminAppointment() {
                                     </td>
                                 </tr>
                             ) : allUsersAppointment?.rows.map((userAppointment, index) => (
-                                <tr key={index} className="bg-white relative cursor-pointer hover:border-[#1F2973] hover:border">
-                                    <td scope="row" className="px-6 py-4 text-center">
+                                <tr key={index} className="bg-white relative cursor-pointer hover:border-[#1F2973] hover:border text-center">
+                                    <td scope="row" className="px-6 py-4">
                                         <Image className="rounded-full h-auto w-auto" src={`/uploads/${userAppointment.image_url}`} height={50} width={50} alt={`Foto de perfil de ${userAppointment.username}`} />
                                     </td>
-                                    <td scope="row" className="px-6 py-4 font-medium text-gray-900 text-center">
+                                    <td scope="row" className="px-6 py-4 font-medium text-gray-900">
                                         {userAppointment.username}
                                     </td>
-                                    <td className="px-6 py-4 text-center">
+                                    <td className="px-6 py-4">
                                         {userAppointment.user_email}
                                     </td>
-                                    <td className="px-6 py-4 text-center">
+                                    <td className="px-6 py-4">
                                         {userAppointment.appointment_reason}
                                     </td>
-                                    <td className="px-6 py-4 text-center" >
+                                    <td className="px-6 py-4" >
                                         {new Date(userAppointment.date!).toLocaleDateString()}
                                     </td>
-                                    <td className="px-6 py-4 text-center" >
+                                    <td className="px-6 py-4" >
                                         {userAppointment.hour?.slice(0, 5)}
                                     </td>
-                                    <td className="px-6 py-4 text-center" >
+                                    <td className="px-6 py-4" >
                                         {userAppointment.state}
                                     </td>
                                     <td>

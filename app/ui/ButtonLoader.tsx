@@ -1,9 +1,9 @@
 
 interface ButtonLoaderProps {
-  size?:string
+  size?: string
 }
 
-export default function ButtonLoader({size}:ButtonLoaderProps) {
+export default function ButtonLoader({ size }: ButtonLoaderProps) {
   return (
     <div className="flex justify-center items-center">
       <svg
