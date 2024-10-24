@@ -23,12 +23,13 @@ export default function Form() {
     }
   }, [state]);
 
-  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
+  const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
     setIsLoading(true);
 
-    const formData = new FormData(e.target as HTMLFormElement);
+    const formData = new FormData(event.target as HTMLFormElement);
     const result = await loginAction(state, formData);
+
     if (result.error) {
       setState({ ...state, error: result?.error });
     } else {
@@ -74,11 +75,12 @@ export default function Form() {
         >
           {isLoading === false ? "Inicia la sesión" : <ButtonLoader />}
         </button>
-      </div>
-
-      {state?.error && (
-        <label className="text-xs font-mono text-red-500">{state?.error}</label>
-      )}
+        {state?.error && (
+          <div className="flex justify-center mt-2">
+            <label className="text-xs font-mono text-red-500">{state?.error}</label>
+          </div>
+        )}
+      </div>            
 
       <p className="text-gray-800 text-sm mt-5 text-center">
         ¿Aún no tienes una cuenta?

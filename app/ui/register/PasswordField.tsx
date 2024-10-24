@@ -52,7 +52,7 @@ export default function PasswordField({
         />
       </div>
       {errors.passwordErrors.length > 0 && (
-        <div>
+        <div className="max-w-96">
           {errors.passwordErrors.map((error, index) => (
             <label key={index} className="text-xs font-mono text-red-500">
               {error}

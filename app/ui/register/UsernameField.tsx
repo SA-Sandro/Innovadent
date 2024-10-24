@@ -42,7 +42,7 @@ export default function UsernameField({
       />
 
       {errors.userErrors.length > 0 && (
-        <div>
+        <div className="max-w-96">
           {errors.userErrors.map((error, index) => (
             <label key={index} className="text-xs font-mono text-red-500">
               {error}

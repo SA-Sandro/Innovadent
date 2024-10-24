@@ -34,7 +34,7 @@ export default function Info() {
           </li>
         </ul>
       </article>
-      <div className="flex flex-col md:flex-row space-y-4 md:space-x-2 md:space-y-0 justify-center items-center">
+      <div className="flex flex-col md:flex-row space-y-4 md:space-x-2 md:space-y-0 justify-center">
         <article className={styles["info-container"]}>
           <h2>Nuestra filosofía</h2>
           <p>

@@ -11,7 +11,7 @@ export default function Aside({ burguerIsClicked }: AsideProps) {
 
   return (
     <aside
-      className={`fixed top-0 z-50 left-0 w-64 h-screen transition-transform sm:translate-x-0
+      className={`fixed top-0 z-50 left-0 w-64 h-screen transition-transform sm:translate-x-0  bg-[#1F2937]
       ${burguerIsClicked ? "translate-x-0" : "-translate-x-full"}`}
     >
       {session?.isLoggedIn && session?.role === 'user' ? <UserRoutes /> : (

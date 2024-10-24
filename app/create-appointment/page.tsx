@@ -47,9 +47,9 @@ export default function Appointment() {
   }, [state.appointmentDate, state.isSuccess])
 
   return (
-    <div className="relative flex justify-center items-center bg-white p-10 rounded-xl w-[35%]">
-      <div className="px-10 rounded-xl w-full">
-        <h1 className="text-2xl font-bold text-center">Reservar cita</h1>
+    <div className="relative flex justify-center items-center w-full">
+      <div className="bg-gray-50 rounded-xl w-full mx-5 px-2 py-5 sm:p-10 sm:w-[70%] lg:w-[50%] xl:w-[40%]">
+        <h1 className="text-[#1F2937] bg-[#1F2937]/10 rounded-lg text-center text-3xl font-bold py-5 mb-5">¡Reserva una cita!</h1>
         <form action={action} className="space-y-5">
           <div>
             <label className="text-gray-800 text-sm mb-2 block">

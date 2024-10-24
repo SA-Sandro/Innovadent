@@ -13,8 +13,7 @@ import Modal from "@/lib/modal";
 import UsernameField from "./UsernameField";
 import { useSession } from "@/context/SessionContext";
 import { saveSession } from "@/lib/session";
-
-const DEFAULT_IMAGE_URL: string = '/images/default.png';
+import { DEFAULT_IMAGE_URL } from "@/lib/constants";
 
 export default function Form() {
   const { setSession } = useSession();
