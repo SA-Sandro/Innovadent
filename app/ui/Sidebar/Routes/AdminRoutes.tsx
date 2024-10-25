@@ -20,11 +20,11 @@ export default function AdminRoutes() {
                 <Link href="/">
                     <Image
                         width={80}
-                        height={60}
+                        height={80}
                         priority={true}
                         src={`/uploads/${session?.image_url}`}
                         alt="Logo de Innovadent"
-                        className="w-auto h-auto rounded-full"
+                        className="w-20 h-20 rounded-full"
                     />
                 </Link>
                 <h3 className="text-white font-bold text-lg mt-2">¡Bienvenido, {session?.userName}!</h3>
