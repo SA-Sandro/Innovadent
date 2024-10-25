@@ -54,9 +54,9 @@ export default function AdminAppointment() {
                     Citas pendientes
                 </h1>
                 <div className="overflow-x-auto max-w-5xl mx-auto my-10">
-                    <table id="table">
+                    <table id="table" className="mx-auto">
                         <thead>
-                            <tr className="space-x-10">
+                            <tr className="space-x-10 bg-gray-50">
                                 <th scope="col" className="px-6 py-3 text-gray-50">
                                     Imagen
                                 </th>
@@ -80,10 +80,10 @@ export default function AdminAppointment() {
                                 </th>
                             </tr>
                         </thead>
-                        <tbody className="border-b ">
+                        <tbody className="border-b">
                             {allUsersAppointment && allUsersAppointment?.rowCount < 1 ? (
-                                <tr className="bg-white border-b cursor-pointer hover:bg-gray-100">
-                                    <td rowSpan={5} className="text-center px-6 py-4">
+                                <tr className="bg-white relative cursor-pointer hover:border-[#1F2973] hover:border text-center">
+                                    <td colSpan={7} className="px-6 py-4">
                                         No hay ninguna cita pendiente
                                     </td>
                                 </tr>

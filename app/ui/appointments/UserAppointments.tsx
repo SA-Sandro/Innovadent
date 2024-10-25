@@ -7,6 +7,7 @@ import { useEffect, useState } from "react";
 import ButtonLoader from "../ButtonLoader";
 import { CiSquareRemove } from "react-icons/ci";
 import WarningAppointmentDelete from "../modal/WarningAppointmentDelete";
+import TableLoader from "../skeletons/TableSkeleton";
 
 
 export default function UserAppointments() {
@@ -82,7 +83,7 @@ export default function UserAppointments() {
     if (isLoadingWhileFetching) {
         return (
             <div className="relative bg-white rounded-xl p-10">
-                <ButtonLoader />
+                <TableLoader />
             </div>
         );
     }
