@@ -4,9 +4,9 @@
 import { AppointmentData, AppointmentRows } from "@/lib/definitions";
 import Image from "next/image";
 import { useEffect, useState } from "react";
-import ButtonLoader from "@/ui/ButtonLoader";
 import { BiSolidEdit } from "react-icons/bi";
 import EditingAppointmentPane from "@/ui/appointments/EditingAppointmentPane";
+import TableLoader from "../skeletons/TableSkeleton";
 
 
 export default function AdminAppointment() {
@@ -41,7 +41,7 @@ export default function AdminAppointment() {
     if (isLoading) {
         return (
             <div className="relative bg-white rounded-xl flex justify-center items-center py-10 px-52">
-                <ButtonLoader />
+                <TableLoader />
             </div>
         )
     }
@@ -53,11 +53,11 @@ export default function AdminAppointment() {
                 <h1 className="text-[#1F2937] bg-[#1F2937]/10 rounded-lg text-center text-2xl sm:text-3xl font-bold py-5 mx-auto my-5 px-10 max-w-96">
                     Citas pendientes
                 </h1>
-                <div className="overflow-x-auto max-w-5xl mx-auto my-10">
-                    <table id="table">
+                <div className="overflow-x-auto max-w-6xl mx-auto my-10">
+                    <table id="table" className="mx-auto">
                         <thead>
-                            <tr className="space-x-10">
-                                <th scope="col" className="px-6 py-3 text-gray-50">
+                            <tr className="space-x-10 bg-gray-100">
+                                <th scope="col" className="px-6 py-3 text-gray-100">
                                     Imagen
                                 </th>
                                 <th scope="col" className="px-6 py-3">
@@ -80,17 +80,17 @@ export default function AdminAppointment() {
                                 </th>
                             </tr>
                         </thead>
-                        <tbody className="border-b ">
+                        <tbody className="border-b">
                             {allUsersAppointment && allUsersAppointment?.rowCount < 1 ? (
-                                <tr className="bg-white border-b cursor-pointer hover:bg-gray-100">
-                                    <td rowSpan={5} className="text-center px-6 py-4">
+                                <tr className="bg-white relative cursor-pointer hover:border-[#1F2973] hover:border text-center">
+                                    <td colSpan={7} className="px-6 py-4">
                                         No hay ninguna cita pendiente
                                     </td>
                                 </tr>
                             ) : allUsersAppointment?.rows.map((userAppointment, index) => (
                                 <tr key={index} className="bg-white relative cursor-pointer hover:border-[#1F2973] hover:border text-center">
                                     <td scope="row" className="px-6 py-4">
-                                        <Image className="rounded-full h-auto w-auto" src={`/uploads/${userAppointment.image_url}`} height={50} width={50} alt={`Foto de perfil de ${userAppointment.username}`} />
+                                        <Image className="rounded-full h-20 w-20" src={`/uploads/${userAppointment.image_url}`} height={80} width={80} alt={`Foto de perfil de ${userAppointment.username}`} />
                                     </td>
                                     <td scope="row" className="px-6 py-4 font-medium text-gray-900">
                                         {userAppointment.username}

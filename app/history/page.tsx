@@ -1,7 +1,7 @@
 'use client'
 
 import { AppointmentData, AppointmentRows } from "@/lib/definitions";
-import ButtonLoader from "@/ui/ButtonLoader";
+import TableLoader from "@/ui/skeletons/TableSkeleton";
 import Image from "next/image";
 import { useEffect, useState } from "react"
 
@@ -36,7 +36,7 @@ export default function History() {
 
     if (isLoading) return (
         <div className="relative bg-white rounded-xl flex justify-center items-center py-10 px-52">
-            <ButtonLoader />
+            <TableLoader />
         </div>
     )
 
@@ -44,13 +44,13 @@ export default function History() {
         <div className="relative w-full flex justify-center mx-10 my-10">
             <div className="bg-gray-50 rounded-xl items-center w-full max-w-7xl">
                 <h1 className="text-[#1F2937] bg-[#1F2937]/10 rounded-lg text-center text-2xl sm:text-3xl font-bold py-5 mx-auto my-5 px-10 max-w-96">
-                    Citas pendientes
+                    Historial de citas
                 </h1>
-                <div className="overflow-x-auto max-w-5xl mx-auto my-10">
+                <div className="overflow-x-auto max-w-6xl mx-auto my-10">
                     <table id="table" className="my-5">
                         <thead>
-                            <tr className="">
-                                <th scope="col" className="px-6 py-3 text-gray-50">
+                            <tr className="bg-gray-100">
+                                <th scope="col" className="px-6 py-3 text-gray-100">
                                     Imagen
                                 </th>
                                 <th scope="col" className="px-6 py-3">
@@ -75,11 +75,13 @@ export default function History() {
                         </thead>
                         <tbody>
                             {allNonPendingAppointments!.rowCount < 1 ? (
-                                <td className="text-center " scope="row" colSpan={7}>El historial se encuentra vacío</td>
+                                <tr className="bg-white relative cursor-pointer hover:border-[#1F2973] hover:border text-center">
+                                    <td className="text-center px-6 py-4" scope="row" colSpan={7}>El historial se encuentra vacío</td>
+                                </tr>
                             ) : allNonPendingAppointments?.rows.map((appointment, index) => (
                                 <tr key={index} className="relative cursor-pointer hover:border-[#1F2973] hover:border odd:bg-white even:bg-[#1F2937]/10 text-center">
                                     <td className="px-6 py-4 text-center">
-                                        <Image className="rounded-full h-auto w-auto" src={`/uploads/${appointment.image_url}`} height={50} width={50} alt={`Foto de perfil de ${appointment.username}`} />
+                                        <Image className="rounded-full h-20 w-20" src={`/uploads/${appointment.image_url}`} height={80} width={80} alt={`Foto de perfil de ${appointment.username}`} />
                                     </td>
                                     <td scope="row" className="px-5">{appointment.username}</td>
                                     <td scope="row" className="px-5">{appointment.user_email}</td>
