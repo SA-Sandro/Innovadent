@@ -53,7 +53,7 @@ export default function AdminAppointment() {
                 <h1 className="text-[#1F2937] bg-[#1F2937]/10 rounded-lg text-center text-2xl sm:text-3xl font-bold py-5 mx-auto my-5 px-10 max-w-96">
                     Citas pendientes
                 </h1>
-                <div className="overflow-x-auto max-w-5xl mx-auto my-10">
+                <div className="overflow-x-auto max-w-6xl mx-auto my-10">
                     <table id="table" className="mx-auto">
                         <thead>
                             <tr className="space-x-10 bg-gray-100">
@@ -90,7 +90,7 @@ export default function AdminAppointment() {
                             ) : allUsersAppointment?.rows.map((userAppointment, index) => (
                                 <tr key={index} className="bg-white relative cursor-pointer hover:border-[#1F2973] hover:border text-center">
                                     <td scope="row" className="px-6 py-4">
-                                        <Image className="rounded-full h-auto w-auto" src={`/uploads/${userAppointment.image_url}`} height={50} width={50} alt={`Foto de perfil de ${userAppointment.username}`} />
+                                        <Image className="rounded-full h-20 w-20" src={`/uploads/${userAppointment.image_url}`} height={80} width={80} alt={`Foto de perfil de ${userAppointment.username}`} />
                                     </td>
                                     <td scope="row" className="px-6 py-4 font-medium text-gray-900">
                                         {userAppointment.username}
