@@ -4,9 +4,9 @@
 import { AppointmentData, AppointmentRows } from "@/lib/definitions";
 import Image from "next/image";
 import { useEffect, useState } from "react";
-import ButtonLoader from "@/ui/ButtonLoader";
 import { BiSolidEdit } from "react-icons/bi";
 import EditingAppointmentPane from "@/ui/appointments/EditingAppointmentPane";
+import TableLoader from "../skeletons/TableSkeleton";
 
 
 export default function AdminAppointment() {
@@ -41,7 +41,7 @@ export default function AdminAppointment() {
     if (isLoading) {
         return (
             <div className="relative bg-white rounded-xl flex justify-center items-center py-10 px-52">
-                <ButtonLoader />
+                <TableLoader />
             </div>
         )
     }
@@ -56,8 +56,8 @@ export default function AdminAppointment() {
                 <div className="overflow-x-auto max-w-5xl mx-auto my-10">
                     <table id="table" className="mx-auto">
                         <thead>
-                            <tr className="space-x-10 bg-gray-50">
-                                <th scope="col" className="px-6 py-3 text-gray-50">
+                            <tr className="space-x-10 bg-gray-100">
+                                <th scope="col" className="px-6 py-3 text-gray-100">
                                     Imagen
                                 </th>
                                 <th scope="col" className="px-6 py-3">
