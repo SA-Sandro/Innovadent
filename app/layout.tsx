@@ -1,8 +1,8 @@
 import "@/globals.css";
-import { poppins } from "@/ui/fonts";
-import Sidebar from "./ui/sidebar/Sidebar";
-import Footer from "./ui/footer/Footer";
 import { SessionProvider } from "@/context/SessionContext";
+import Footer from "../ui/footer/Footer";
+import Sidebar from "../ui/sidebar/Sidebar";
+import { poppins } from "../ui/fonts";
 
 export default function RootLayout({
   children,

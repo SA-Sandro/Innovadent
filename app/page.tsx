@@ -1,5 +1,5 @@
 import Image from "next/image";
-import Info from "@/ui/Info/Info";
+import Info from "../ui/Info/Info";
 
 export default function Home() {
   return (
