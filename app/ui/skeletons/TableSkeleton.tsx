@@ -1,7 +1,11 @@
-import React from 'react'
-import ContentLoader from 'react-content-loader'
+import { ReactNode } from 'react';
+import ContentLoader, { IContentLoaderProps } from 'react-content-loader';
 
-const TableLoader = (props: any) => (
+interface TableLoaderProps extends IContentLoaderProps {
+    children?: ReactNode;
+}
+
+const TableLoader = (props: TableLoaderProps) => (
     <ContentLoader
         width={1000}
         height={550}
