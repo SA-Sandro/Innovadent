@@ -1,8 +1,8 @@
 'use client';
 
 import { useSession } from "@/context/SessionContext";
-import AdminAppointment from "@/ui/appointments/AdminAppointments";
-import UserAppointments from "@/ui/appointments/UserAppointments";
+import UserAppointments from "../../ui/appointments/UserAppointments";
+import AdminAppointment from "../../ui/appointments/AdminAppointments";
 
 export default function Appointments() {
 

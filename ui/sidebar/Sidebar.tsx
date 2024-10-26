@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import { RiMenu2Line } from "react-icons/ri";
-import Aside from "@/ui/sidebar/Aside";
+import Aside from "./Aside";
 
 export default function Sidebar() {
   const [burguerIsClicked, setBurguerIsClicked] = useState(false);

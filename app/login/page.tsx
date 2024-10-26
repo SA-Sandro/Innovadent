@@ -1,4 +1,4 @@
-import Form from "@/ui/login/Form";
+import Form from "../../ui/login/Form";
 
 export default async function Login() {
   return (

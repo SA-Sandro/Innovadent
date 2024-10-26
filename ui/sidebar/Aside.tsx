@@ -1,9 +1,9 @@
 
 import { AsideProps } from "@/lib/definitions";
-import UserRoutes from "@/ui/sidebar/Routes/UserRoutes";
-import AdminRoutes from "@/ui/sidebar/Routes/AdminRoutes";
-import NonSignedInRoutes from "@/ui/sidebar/Routes/NonSignedInRoutes";
 import { useSession } from "@/context/SessionContext";
+import AdminRoutes from "./Routes/AdminRoutes";
+import UserRoutes from "./Routes/UserRoutes";
+import NonSignedInRoutes from "./Routes/NonSignedInRoutes";
 
 export default function Aside({ burguerIsClicked }: AsideProps) {
 

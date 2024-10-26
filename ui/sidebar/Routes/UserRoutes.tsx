@@ -5,8 +5,8 @@ import { CiCalendarDate } from "react-icons/ci";
 import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import LogoutButton from "@/ui/LogoutButton";
 import { useSession } from "@/context/SessionContext";
+import LogoutButton from "../../LogoutButton";
 
 export default function Routes() {
 

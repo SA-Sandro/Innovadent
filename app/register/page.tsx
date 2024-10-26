@@ -1,4 +1,4 @@
-import Form from "@/ui/register/Form";
+import Form from "../../ui/login/Form";
 
 export default function register() {
   return (

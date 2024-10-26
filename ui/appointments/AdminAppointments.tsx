@@ -5,8 +5,8 @@ import { AppointmentData, AppointmentRows } from "@/lib/definitions";
 import Image from "next/image";
 import { useEffect, useState } from "react";
 import { BiSolidEdit } from "react-icons/bi";
-import EditingAppointmentPane from "@/ui/appointments/EditingAppointmentPane";
 import TableLoader from "../skeletons/TableSkeleton";
+import EditingAppointmentPanel from "./EditingAppointmentPane";
 
 
 export default function AdminAppointment() {
@@ -45,7 +45,7 @@ export default function AdminAppointment() {
             </div>
         )
     }
-    if (showPane) return <EditingAppointmentPane setShowPane={setShowPane} appointmentToEdit={appointmentToEdit!} fetchAllUsersAppointment={fetchAllUsersAppointment} />
+    if (showPane) return <EditingAppointmentPanel setShowPane={setShowPane} appointmentToEdit={appointmentToEdit!} fetchAllUsersAppointment={fetchAllUsersAppointment} />
 
     return (
         <div className="relative w-full flex justify-center mx-10">

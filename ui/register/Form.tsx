@@ -1,19 +1,19 @@
 "use client";
 
 import { CustomerData, ErrorState, FileName, User } from "@/lib/definitions";
-import MailField from "@/ui/register/MailField";
-import PasswordField, { ConfirmPasswordField } from "@/ui/register/PasswordField";
-import PhotoPreviewer from "@/ui/register/PhotoField";
 import { FormEvent, useState } from "react";
-import ButtonLoader from "@/ui/ButtonLoader";
 import { useRouter } from "next/navigation";
-import FailedRegistration from "@/ui/modal/FailedRegistration";
 import { fileUpload } from "@/lib/utils";
 import Modal from "@/lib/modal";
 import UsernameField from "./UsernameField";
 import { useSession } from "@/context/SessionContext";
 import { saveSession } from "@/lib/session";
 import { DEFAULT_IMAGE_URL } from "@/lib/constants";
+import MailField from "./MailField";
+import PasswordField, { ConfirmPasswordField } from "./PasswordField";
+import PhotoPreviewer from "./PhotoField";
+import FailedRegistration from "../modal/FailedRegistration";
+import ButtonLoader from "../ButtonLoader";
 
 export default function Form() {
   const { setSession } = useSession();

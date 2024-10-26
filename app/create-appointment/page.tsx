@@ -5,10 +5,10 @@ import { AVAILABLE_HOURS } from "@/lib/constants";
 import { getBookedHourByDate } from "@/lib/data";
 import { appointmentInitialState } from "@/lib/definitions";
 import Modal from "@/lib/modal";
-import SuccessAppointment from "@/ui/modal/SuccessAppointment";
-import SubmitButton from "@/ui/SubmitButton";
 import { ChangeEvent, useEffect, useState } from "react"
 import { useFormState } from "react-dom";
+import SuccessAppointment from "../../ui/modal/SuccessAppointment";
+import SubmitButton from "../../ui/SubmitButton";
 
 export default function Appointment() {
   const [selectValue, setSelectValue] = useState<string>();

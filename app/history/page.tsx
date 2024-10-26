@@ -1,9 +1,9 @@
 'use client'
 
 import { AppointmentData, AppointmentRows } from "@/lib/definitions";
-import TableLoader from "@/ui/skeletons/TableSkeleton";
 import Image from "next/image";
 import { useEffect, useState } from "react"
+import TableLoader from "../../ui/skeletons/TableSkeleton";
 
 export default function History() {
 
