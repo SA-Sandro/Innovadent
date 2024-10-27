@@ -13,6 +13,7 @@
   "dependencies": {
     "@vercel/postgres": "^0.10.0",
     "bcryptjs": "^2.4.3",
+    "cloudinary": "^2.5.1",
     "dotenv": "^16.4.5",
     "formidable": "^3.5.1",
     "fs": "^0.0.1-security",

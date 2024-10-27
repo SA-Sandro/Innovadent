@@ -121,3 +121,7 @@ export type AppointmentData = {
   hour?: string;
   state?: string;
 };
+
+export type APIResponseFile = {
+  url: string;
+};

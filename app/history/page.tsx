@@ -17,7 +17,6 @@ export default function History() {
                 throw new Error('Error trying to fetch the users appointment');
             }
             const data = await response.json();
-            console.log(data.rowCount);
             setAllNonPendingAppointments({
                 rowCount: data.rowCount,
                 rows: data.rows as AppointmentData[]
@@ -47,7 +46,7 @@ export default function History() {
                     Historial de citas
                 </h1>
                 <div className="overflow-x-auto max-w-6xl mx-auto my-10">
-                    <table id="table" className="my-5">
+                    <table id="table" className="my-5 mx-auto">
                         <thead>
                             <tr className="bg-gray-100">
                                 <th scope="col" className="px-6 py-3 text-gray-100">
@@ -81,7 +80,7 @@ export default function History() {
                             ) : allNonPendingAppointments?.rows.map((appointment, index) => (
                                 <tr key={index} className="relative cursor-pointer hover:border-[#1F2973] hover:border odd:bg-white even:bg-[#1F2937]/10 text-center">
                                     <td className="px-6 py-4 text-center">
-                                        <Image className="rounded-full h-14 w-14" src={`/uploads/${appointment.image_url}`} height={100} width={100} alt={`Foto de perfil de ${appointment.username}`} />
+                                        <Image className="rounded-full h-14 w-14" src={`${appointment.image_url}`} height={100} width={100} alt={`Foto de perfil de ${appointment.username}`} />
                                     </td>
                                     <td scope="row" className="px-5">{appointment.username}</td>
                                     <td scope="row" className="px-5">{appointment.user_email}</td>

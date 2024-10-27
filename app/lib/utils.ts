@@ -1,5 +1,5 @@
 import bcrypt from "bcryptjs";
-import { FileName } from "./definitions";
+import { APIResponseFile } from "./definitions";
 
 export const hashPassword = async (password: string): Promise<string> => {
   return await bcrypt.hash(password, 10);
@@ -13,7 +13,9 @@ export const getLocalDate = (date: Date): string => {
   return `${year}-${month}-${day}`;
 };
 
-export const fileUpload = async (formData: FormData): Promise<FileName> => {
+export const fileUpload = async (
+  formData: FormData
+): Promise<APIResponseFile> => {
   try {
     const res = await fetch("/api/uploadFile", {
       method: "POST",
