@@ -29,10 +29,18 @@ Innovadent is built using the following technologies:
   
 - **Backend**:
   - **Database**: PostgreSQL hosted on Vercel.
+  - **Cloudinary**: Used for storing user profile photos.
   
 - **Validations**:
   - **Zod**: A library for data validation and schema definition.
 
 - **Session Management**:
   - **Iron Session**: A library for user session management.
+
+##¡Important!
+
+To access the application as administrator you must log in with the following credentials:
+
+  - **Email**: admin@gmail.com
+  - **Password**: admin11A
 
