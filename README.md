@@ -1,36 +1,38 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# INNOVADENT: A Dental Clinic Website
 
-## Getting Started
+![Main Screen](https://github.com/user-attachments/assets/d8ad5ef2-b82c-40f0-84a0-107797da77bc)
 
-First, run the development server:
+Innovadent is a dental clinic committed to providing high-quality dental services tailored to the unique needs of each patient. With this website, clients can easily schedule appointments and access clinic information online.
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+## Features
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+- **User Authentication**: Login and user registration functionalities are implemented.
+- **User Roles**: There are two types of users:
+  - **Admin**: Has access to manage appointments and view history.
+  - **Normal User**: Can book and manage their own appointments.
+- **Online Appointment Booking**: Users can conveniently book appointments online.
+- **Appointment Management**: 
+  - Users can view their appointments and have the option to suspend them.
+  - Admins can review all pending appointments and edit them as needed.
+  - Admins can also access an appointment history that displays all suspended and completed appointments.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Technology Stack
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+Innovadent is built using the following technologies:
 
-## Learn More
+- **Frontend**: 
+  - **React**: JavaScript library for building user interfaces.
+  - **TypeScript**: A programming language that extends JavaScript with static types.
+  - **Next.js**: A React framework for server-side applications and static site generation.
+  - **Tailwind CSS**: A utility-first CSS framework for designing interfaces.
+  - **CSS Modules**: For managing styles scoped to components.
+  
+- **Backend**:
+  - **Database**: PostgreSQL hosted on Vercel.
+  
+- **Validations**:
+  - **Zod**: A library for data validation and schema definition.
 
-To learn more about Next.js, take a look at the following resources:
+- **Session Management**:
+  - **Iron Session**: A library for user session management.
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
