@@ -117,7 +117,6 @@ export const getParsedAppointmentToUpdate = async (
   const bookedHours = await getBookedHourByDate(new Date(formattedDate));
 
   let updateDataSchema;
-  console.log(data.date, formattedDate, bookedHours);
   if (data.hour === hour) {
     updateDataSchema = z.object({
       date: z.date().refine((date) => date > new Date(), {

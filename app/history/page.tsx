@@ -17,7 +17,6 @@ export default function History() {
                 throw new Error('Error trying to fetch the users appointment');
             }
             const data = await response.json();
-            console.log(data.rowCount);
             setAllNonPendingAppointments({
                 rowCount: data.rowCount,
                 rows: data.rows as AppointmentData[]
