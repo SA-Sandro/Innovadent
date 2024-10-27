@@ -13,7 +13,9 @@ export const getLocalDate = (date: Date): string => {
   return `${year}-${month}-${day}`;
 };
 
-export const fileUpload = async (formData: FormData): Promise<APIResponseFile> => {
+export const fileUpload = async (
+  formData: FormData
+): Promise<APIResponseFile> => {
   try {
     const res = await fetch("/api/uploadFile", {
       method: "POST",
