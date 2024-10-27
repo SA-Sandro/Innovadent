@@ -22,7 +22,7 @@ export default function AdminRoutes() {
                         width={80}
                         height={80}
                         priority={true}
-                        src={`/uploads/${session?.image_url}`}
+                        src={`${session?.image_url}`}
                         alt="Logo de Innovadent"
                         className="w-20 h-20 rounded-full"
                     />

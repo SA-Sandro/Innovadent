@@ -81,7 +81,7 @@ export default function History() {
                             ) : allNonPendingAppointments?.rows.map((appointment, index) => (
                                 <tr key={index} className="relative cursor-pointer hover:border-[#1F2973] hover:border odd:bg-white even:bg-[#1F2937]/10 text-center">
                                     <td className="px-6 py-4 text-center">
-                                        <Image className="rounded-full h-14 w-14" src={`/uploads/${appointment.image_url}`} height={100} width={100} alt={`Foto de perfil de ${appointment.username}`} />
+                                        <Image className="rounded-full h-14 w-14" src={`${appointment.image_url}`} height={100} width={100} alt={`Foto de perfil de ${appointment.username}`} />
                                     </td>
                                     <td scope="row" className="px-5">{appointment.username}</td>
                                     <td scope="row" className="px-5">{appointment.user_email}</td>
