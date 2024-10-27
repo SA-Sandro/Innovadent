@@ -1,6 +1,6 @@
 "use client";
 
-import { CustomerData, ErrorState, FileName, User } from "@/lib/definitions";
+import { CustomerData, ErrorState, User } from "@/lib/definitions";
 import { FormEvent, useState } from "react";
 import { useRouter } from "next/navigation";
 import { fileUpload } from "@/lib/utils";
@@ -56,8 +56,8 @@ export default function Form() {
       const file = formData.get('image_url') as File;
 
       if (file && file.size > 0) {
-        const response: FileName = await fileUpload(formData);
-        image_url = response.fileName;
+        const response = await fileUpload(formData);
+        image_url = response.url;
       } else {
         image_url = DEFAULT_IMAGE_URL;
       }
