@@ -90,7 +90,7 @@ export default function AdminAppointment() {
                             ) : allUsersAppointment?.rows.map((userAppointment, index) => (
                                 <tr key={index} className="bg-white relative cursor-pointer hover:border-[#1F2973] hover:border text-center">
                                     <td scope="row" className="px-6 py-4">
-                                        <Image className="rounded-full h-20 w-20" src={`/uploads/${userAppointment.image_url}`} height={80} width={80} alt={`Foto de perfil de ${userAppointment.username}`} />
+                                        <Image className="rounded-full h-14 w-14" src={`/uploads/${userAppointment.image_url}`} height={100} width={100} alt={`Foto de perfil de ${userAppointment.username}`} />
                                     </td>
                                     <td scope="row" className="px-6 py-4 font-medium text-gray-900">
                                         {userAppointment.username}
