@@ -1,19 +1,7 @@
-import { IncomingForm, Files, File } from "formidable";
-import fs from "fs";
-import path from "path";
 import { NextApiRequest, NextApiResponse } from "next";
-
-export const config = {
-  api: {
-    bodyParser: false,
-  },
-};
-
-const ensureUploadsDirExists = (dirPath: string): void => {
-  if (!fs.existsSync(dirPath)) {
-    fs.mkdirSync(dirPath, { recursive: true });
-  }
-};
+import { v2 as cloudinary } from "cloudinary";
+import { IncomingForm, Files, File } from "formidable";
+import path from "path";
 
 const getUploadedFile = (files: Files): File | null => {
   const fileKey = Object.keys(files)[0];
@@ -25,42 +13,54 @@ const getUploadedFile = (files: Files): File | null => {
   return file;
 };
 
+cloudinary.config({
+  cloud_name: process.env.CLOUD_NAME,
+  api_key: process.env.API_KEY,
+  api_secret: process.env.API_SECRET,
+});
+
+export const config = {
+  api: {
+    bodyParser: false,
+  },
+};
+
+const readFile = (req: NextApiRequest): Promise<File> => {
+  const form = new IncomingForm({
+    multiples: false,
+    keepExtensions: true,
+  });
+
+  return new Promise((resolve, reject) => {
+    form.parse(req, (err, fields, files) => {
+      if (err) {
+        reject(err);
+        return;
+      }
+      const file = getUploadedFile(files);
+      resolve(file!);
+    });
+  });
+};
+
 export default async function handler(
   req: NextApiRequest,
   res: NextApiResponse
 ) {
-  if (req.method === "POST") {
-    const uploadsDir = path.join(process.cwd(), "public/uploads");
-    ensureUploadsDirExists(uploadsDir);
+  if (req.method !== "POST") {
+    return res.status(405).json({ message: "Método no permitido" });
+  }
 
-    const form = new IncomingForm({
-      uploadDir: uploadsDir,
-      keepExtensions: true,
+  try {
+    const file = await readFile(req);
+    const result = await cloudinary.uploader.upload(file.filepath, {
+      folder: "uploads",
+      public_id: path.parse(file.originalFilename || "").name,
     });
-    try {
-      const fileName = await new Promise((resolve, reject) => {
-        form.parse(req, (err, fields, files) => {
-          if (err) {
-            return reject(new Error("Error subiendo el archivo"));
-          }
 
-          const uploadedFile = getUploadedFile(files);
-
-          if (!uploadedFile) {
-            return reject(new Error("No se ha subido ningún archivo"));
-          }
-
-          const fileName = path.basename(uploadedFile.filepath);
-          resolve(fileName);
-        });
-      });
-
-      res.status(200).json({ fileName });
-    } catch (error) {
-      console.error(error);
-      res.status(500).json({ message: "Error de servidor" });
-    }
-  } else {
-    res.status(405).json({ message: "Método no permitido" });
+    res.status(200).json({ url: result.secure_url });
+  } catch (error) {
+    console.error("Error al subir a Cloudinary:", error);
+    res.status(500).json({ message: "Error al subir el archivo" });
   }
 }
