@@ -46,7 +46,7 @@ export default function History() {
                     Historial de citas
                 </h1>
                 <div className="overflow-x-auto max-w-6xl mx-auto my-10">
-                    <table id="table" className="my-5">
+                    <table id="table" className="my-5 mx-auto">
                         <thead>
                             <tr className="bg-gray-100">
                                 <th scope="col" className="px-6 py-3 text-gray-100">
