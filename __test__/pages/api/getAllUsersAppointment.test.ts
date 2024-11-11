@@ -45,6 +45,7 @@ describe("GET /api/getAllUsersAppointment handler", () => {
     const req = { method: "POST" } as NextApiRequest;
     const res = createMockResponse();
 
+
     await handler(req, res);
 
     expect(res.status).toHaveBeenCalledWith(405);
