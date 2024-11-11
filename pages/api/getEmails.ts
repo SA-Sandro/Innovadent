@@ -8,6 +8,7 @@ export default async function handler(
   if (req.method === "GET") {
     try {
       const { email } = req.query;
+      console.log(email)
       const result = await getEmailsByEmail(email as string);
       res
         .status(200)

@@ -45,8 +45,6 @@ describe("GET /api/getAllNotPendingAppointments handler", () => {
     const req = { method: "POST" } as NextApiRequest;
     const res = createMockResponse();
 
-    (getAllNotPendingAppointments as Mock).mockResolvedValue(mockData);
-
     await handler(req, res);
 
     expect(res.status).toHaveBeenCalledWith(405);
