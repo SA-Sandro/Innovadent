@@ -20,7 +20,6 @@ export async function loginAction(
   prevState: stateType,
   formData: FormData
 ): Promise<{ session: SessionData | null; error?: string }> {
-  
   const data: CredentialsType = {
     email: formData.get("email") as string,
     password: formData.get("password") as string,
