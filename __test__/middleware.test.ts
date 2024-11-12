@@ -1,8 +1,7 @@
 import getSession from "@/lib/session";
 import { NextRequest, NextResponse } from "next/server";
-import { vi, describe, it, Mock, expect } from "vitest";
+import { vi, describe, it, Mock, expect, beforeEach } from "vitest";
 import { middleware } from "../middleware";
-import { beforeEach } from "node:test";
 
 vi.mock("@/lib/session", () => ({
   default: vi.fn(),
