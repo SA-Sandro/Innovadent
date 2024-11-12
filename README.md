@@ -37,7 +37,7 @@ Innovadent is built using the following technologies:
 - **Session Management**:
   - **Iron Session**: A library for user session management.
 
-##¡Important!
+## ¡Important!
 
 To access the application as administrator you must log in with the following credentials:
 
