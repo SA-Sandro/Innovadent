@@ -30,6 +30,7 @@ export async function loginAction(
   if (parsedCredentials.success) {
     const { email, password } = parsedCredentials.data;
     const user = await getUser(email);
+
     if (!user) return { session: null, error: "Credenciales incorrectas" };
 
     const passwordsMatch = await bcrypt.compare(password, user.password);
